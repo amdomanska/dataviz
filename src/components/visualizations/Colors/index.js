@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const Colors = () => {
-    return <p>This is Colours module</p>
+export const Colors = ({ url }) => {
+    return <p>I've received my url! {url}</p>
 }
