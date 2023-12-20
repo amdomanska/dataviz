@@ -17,7 +17,7 @@ function App() {
             <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={data}/>
             {chosenViz &&
                 <DataViz viz={chosenViz}>
-                    {chosenViz["key"] === "colors" && <Colors url={chosenViz["url"]}/>}
+                    {chosenViz.key === "colors" && <Colors url={chosenViz.url}/>}
                 </ DataViz>
             }
         </div>
