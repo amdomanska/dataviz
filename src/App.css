@@ -1,0 +1,29 @@
+.App {
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  background-color: #F8F8FF;
+  height: 100vh;
+  color: #333333; }
+  .App .content {
+    position: relative;
+    margin-left: 290px; }
+    .App .content .viz_info {
+      margin-bottom: 3rem; }
+    .App .content .data_source {
+      position: absolute;
+      top: .5rem;
+      right: 5rem;
+      padding: .5rem 1rem;
+      border: #333333 solid 1px;
+      color: #333333;
+      text-decoration: none; }
+      .App .content .data_source:hover {
+        color: #FFF;
+        background-color: #333333; }
+      .App .content .data_source svg {
+        vertical-align: text-top; }
+
+.css-1f2xuhi-MuiDrawer-docked .MuiDrawer-paper {
+  background-color: white; }
+
+/*# sourceMappingURL=App.css.map */

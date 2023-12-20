@@ -6,6 +6,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import Toolbar from "@mui/material/Toolbar"
 
 const drawerWidth = 240;
 
@@ -25,6 +26,7 @@ export const PermanentDrawerLeft = ({ handleMenuClick, dataVizList }) => {
         variant="permanent"
         anchor="left"
       >
+          <Toolbar><strong>Browse visualizations</strong></Toolbar>
         <List>
           {dataVizList.map((viz, index) => (
             <ListItem key={viz["key"]} disablePadding onClick={() => {handleMenuClick(viz)}}>

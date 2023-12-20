@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import './App.css';
+import './App.scss';
 import {arc} from 'd3';
 import {DataViz} from "./components/DataViz";
 import {PermanentDrawerLeft} from "./components/PermanentDrawerLeft"
@@ -15,11 +15,13 @@ function App() {
     return (
         <div className="App">
             <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={data}/>
-            {chosenViz &&
-                <DataViz viz={chosenViz}>
-                    {chosenViz.key === "colors" && <Colors url={chosenViz.url}/>}
-                </ DataViz>
-            }
+            <div className="content">
+                {chosenViz &&
+                    <DataViz viz={chosenViz}>
+                        {chosenViz.key === "colors" && <Colors url={chosenViz.url}/>}
+                    </ DataViz>
+                }
+            </div>
         </div>
     );
 }
