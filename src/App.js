@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import {useState} from 'react';
 import './App.css';
+import {arc} from 'd3';
+import {DataViz} from "./components/DataViz";
+import {PermanentDrawerLeft} from "./components/PermanentDrawerLeft"
+import {Colors} from "./components/visualizations/Colors"
+
+const DATAVIZ = [{key: "colors", title: "CSS named colours", url: "www.wp.pl"}, {
+    key: "something",
+    title: "Something else",
+    url: "www.something.pl"
+}]
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [chosenViz, setChosenViz] = useState()
+    const handleMenuClick = (viz) => {
+        setChosenViz(viz);
+    }
+    return (
+        <div className="App">
+            <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={DATAVIZ}/>
+            {chosenViz &&
+                <DataViz title={chosenViz["title"]} information={chosenViz["url"]}>
+                    {chosenViz["key"] === "colors" && <Colors />}
+                    {chosenViz["key"] === "something" && <p>Something Chosen</p>}
+                </ DataViz>
+            }
+        </div>
+    );
 }
 
 export default App;
