@@ -3,7 +3,7 @@ import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
 import {max, scaleLinear, scaleBand, format,} from 'd3';
 import {AxisLeft} from './AxisLeft'
-import {AxisBottom} from './AxisBottom'
+import {AxisBottom} from '../../shared/AxisBottom'
 
 import {Marks} from './Marks';
 

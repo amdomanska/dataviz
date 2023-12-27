@@ -5,7 +5,7 @@ export const AxisLeft = ({yScale}) =>
                 key={tickValue}
                 style={{textAnchor: 'end'}}
                 x={-5}
-                dy={".32em"}
+                dy={".75em"}
                 y={yScale(tickValue) + yScale.bandwidth() / 2}
             >
                 {tickValue}
