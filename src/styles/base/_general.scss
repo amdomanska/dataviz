@@ -8,9 +8,11 @@
   .content {
     position: relative;
     margin-left: 290px; //left drawer width: 240px, defined in PermanentDrawerLeft module
+
     .viz_info {
       margin-bottom: 3rem;
     }
+
     .data_source {
       position: absolute;
       top: .5rem;
@@ -19,12 +21,10 @@
       border: $black solid 1px;
       color: $black;
       text-decoration: none;
+
       &:hover {
         color: $white;
         background-color: $black;
-      }
-      svg {
-        vertical-align: text-top;
       }
     }
   }

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import './App.scss';
 import {arc} from 'd3';
 import {DataViz} from "./components/DataViz";
@@ -19,8 +19,8 @@ function App() {
             <div className="content">
                 {chosenViz &&
                     <DataViz viz={chosenViz}>
-                        {chosenViz.key === "colors" && <Colors/>}
-                        {chosenViz.key === "population" && <Population/>}
+                        {chosenViz.key === "colors" && <Colors />}
+                        {chosenViz.key === "population" && <Population />}
                     </ DataViz>
                 }
             </div>

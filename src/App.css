@@ -20,10 +20,21 @@
       .App .content .data_source:hover {
         color: #FFF;
         background-color: #333333; }
-      .App .content .data_source svg {
-        vertical-align: text-top; }
 
 .css-1f2xuhi-MuiDrawer-docked .MuiDrawer-paper {
   background-color: white; }
+
+svg {
+  background-color: #FFF;
+  vertical-align: text-top; }
+  svg .tick line {
+    stroke: #C0C0BB; }
+  svg .tick text {
+    fill: #635F5D; }
+  svg .mark--rect {
+    fill: #137B80; }
+  svg .axis-label {
+    font-size: 2em;
+    fill: #635F5D; }
 
 /*# sourceMappingURL=App.css.map */
