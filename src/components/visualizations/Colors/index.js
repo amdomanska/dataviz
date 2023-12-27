@@ -1,36 +1,35 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import * as d3 from 'd3';
+import {csv, arc, pie} from 'd3';
 
-const width = 900;
-const height = 500;
-const centerX = width / 2;
-const centerY = height / 2;
+import { AreaContext } from "../../AreaContext"
 
-const pieArc = d3.arc()
-    .innerRadius(0)
-    .outerRadius(height*2)
 
 export const Colors = ({url}) => {
     //data keys: "specification, Keyword, RGB hex value"
     const [data, setData] = useState(null)
+    const {width, height, centerX, centerY} = React.useContext(AreaContext)
+
+    const pieArc = arc()
+        .innerRadius(0)
+        .outerRadius(height * 2)
 
     useEffect(() => {
-        d3.csv(url).then(data => {
+        csv(url).then(data => {
             setData(data)
         })
-    }, []);
+    }, [url]);
+
     if (!data) {
         return <p>Loading...</p>
     }
 
-    const colorPie = d3.pie().value(1)
+    const colorPie = pie().value(1)
 
     return (
         <svg width={width} height={height}>
             <g transform={`translate(${centerX},${centerY})`}>
                 {colorPie(data).map(((d, idx) => {
-                    console.log(d);
                     return (
                         <path
                             key={idx}

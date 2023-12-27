@@ -4,6 +4,7 @@ import {arc} from 'd3';
 import {DataViz} from "./components/DataViz";
 import {PermanentDrawerLeft} from "./components/PermanentDrawerLeft"
 import {Colors} from "./components/visualizations/Colors"
+import {Population} from "./components/visualizations/Population"
 import {DATAVIZ as data} from "./data"
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
             <div className="content">
                 {chosenViz &&
                     <DataViz viz={chosenViz}>
-                        {chosenViz.key === "colors" && <Colors url={chosenViz.url}/>}
+                        {chosenViz.key === "colors" && <Colors/>}
+                        {chosenViz.key === "population" && <Population/>}
                     </ DataViz>
                 }
             </div>
