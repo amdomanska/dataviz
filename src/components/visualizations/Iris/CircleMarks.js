@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const CircleMarks = ({data, xScale, xValue, yScale, yValue, radius, colorScale, colorValue}) =>
     data.map((d, idx) => (
         <circle

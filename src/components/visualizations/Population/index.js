@@ -12,7 +12,7 @@ const margin = {top: 50, right: 30, bottom: 80, left: 240}
 export const Population = ({url}) => {
 
     const data = useData(url);
-    const {height, width, centerX, centerY} = React.useContext(AreaContext)
+    const {height, width} = React.useContext(AreaContext)
 
     if (data === null) {
         return <p>Loading...</p>

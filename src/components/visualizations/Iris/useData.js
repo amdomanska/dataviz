@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {csv, descending} from 'd3';
+import {csv} from 'd3';
 
 export const useData = (url) => {
     const [data, setData] = useState(null)

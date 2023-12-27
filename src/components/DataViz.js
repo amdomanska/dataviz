@@ -1,11 +1,6 @@
 import React from 'react';
 import LaunchIcon from '@mui/icons-material/Launch';
 
-const width = 900;
-const height = 500;
-const centerX = width / 2;
-const centerY = height / 2;
-
 export const DataViz = ({viz, children}) => {
 
     const renderChildren = () => {

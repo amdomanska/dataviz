@@ -1,5 +1,7 @@
+import React from 'react';
+
 const xOffset = 25;
-const yOffset = 20;
+const yOffset = 15;
 export const ColorLegend = ({colorScale, tickSize, innerWidth, onHover, fadeOpacity, hoveredValue}) => (
     colorScale.domain().map((domainValue, i) => (
         <g

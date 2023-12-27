@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const AxisLeft = ({yScale}) =>
     yScale.domain().map(tickValue => (
         <g className="tick" key={tickValue}>

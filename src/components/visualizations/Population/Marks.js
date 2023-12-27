@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const Marks = ({
                           data, xScale, yScale, xValue, yValue, tooltipFormat
                       }) =>

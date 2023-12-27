@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
-import {arc} from 'd3';
 import {DataViz} from "./components/DataViz";
 import {PermanentDrawerLeft} from "./components/PermanentDrawerLeft"
 import {Colors} from "./components/visualizations/Colors"
