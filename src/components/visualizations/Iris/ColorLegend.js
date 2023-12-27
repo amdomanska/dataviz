@@ -1,8 +1,14 @@
 const xOffset = 25;
 const yOffset = 20;
-export const ColorLegend = ({colorScale, tickSize, innerWidth}) => (
+export const ColorLegend = ({colorScale, tickSize, innerWidth, onHover, fadeOpacity, hoveredValue}) => (
     colorScale.domain().map((domainValue, i) => (
-        <g transform={`translate(${innerWidth+xOffset},${50+i*(tickSize+yOffset)})`}>
+        <g
+            transform={`translate(${innerWidth+xOffset},${50+i*(tickSize+yOffset)})`}
+            key={i}
+            onMouseEnter={() => onHover(domainValue)}
+            onMouseLeave={() => onHover(null)}
+            opacity={hoveredValue && domainValue !== hoveredValue ? fadeOpacity : 1}
+        >
             <circle
                 fill={colorScale(domainValue)}
                 r={tickSize}

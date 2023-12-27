@@ -11,24 +11,30 @@ const margin = {top: 20, right: 200, bottom: 65, left: 100};
 
 export const Iris = ({url}) => {
     const data = useData(url);
+    const [hoveredValue, setHoveredValue] = React.useState(null)
     const {width, height} = React.useContext(AreaContext);
     if (!data) {
         return <p>Loading...</p>
     }
 
+    const colorValue = d => d.species;
+    const colorLabel = "Species";
+
+    const filteredData = data.filter(d => hoveredValue === colorValue(d))
+
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.right - margin.left;
     const circleRadius = 5;
+    const fadeOpacity = 0.2;
 
     const siFormat = format("")
     const tickFormat = tickValue => siFormat(tickValue)
 
     const xValue = d => d.petal_length;
     const xLabel = "Petal Length";
+
     const yValue = d => d.sepal_width;
     const yLabel = "Sepal Width";
-    const colorValue = d => d.species;
-    const colorLabel = "Species";
 
     const xScale = scaleLinear()
         .domain(extent(data, xValue))
@@ -72,7 +78,18 @@ export const Iris = ({url}) => {
                 >
                     {yLabel}
                 </text>
-                <CircleMarks data={data}
+                <g opacity={hoveredValue ? fadeOpacity : 1}>
+                    <CircleMarks data={data}
+                                 xScale={xScale}
+                                 xValue={xValue}
+                                 yScale={yScale}
+                                 yValue={yValue}
+                                 radius={circleRadius}
+                                 colorScale={colorScale}
+                                 colorValue={colorValue}
+                    />
+                </g>
+                <CircleMarks data={filteredData}
                              xScale={xScale}
                              xValue={xValue}
                              yScale={yScale}
@@ -87,13 +104,15 @@ export const Iris = ({url}) => {
                     x={innerWidth + 80}
                     y={20}
                 >
-                    Species
+                    {colorLabel}
                 </text>
-
                 <ColorLegend
                     colorScale={colorScale}
                     tickSize={5}
                     innerWidth={innerWidth}
+                    onHover={setHoveredValue}
+                    fadeOpacity={fadeOpacity}
+                    hoveredValue={hoveredValue}
                 />
             </g>
         </svg>
