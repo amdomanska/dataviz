@@ -3,10 +3,11 @@ import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
 import {AxisBottom} from "../../shared/AxisBottom";
 import {AxisLeft} from "./AxisLeft";
-import {CircleMarks} from "./CircleMarks"
+import {CircleMarks} from "./CircleMarks";
+import {ColorLegend} from "./ColorLegend";
 import {scaleLinear, extent, format, scaleOrdinal} from "d3"
 
-const margin = {top: 20, right: 20, bottom: 65, left: 100};
+const margin = {top: 20, right: 200, bottom: 65, left: 100};
 
 export const Iris = ({url}) => {
     const data = useData(url);
@@ -67,7 +68,7 @@ export const Iris = ({url}) => {
                 <text
                     className="axis-label"
                     textAnchor="middle"
-                    transform={`translate(-40, ${innerHeight/2}) rotate(-90)`}
+                    transform={`translate(-40, ${innerHeight / 2}) rotate(-90)`}
                 >
                     {yLabel}
                 </text>
@@ -79,6 +80,20 @@ export const Iris = ({url}) => {
                              radius={circleRadius}
                              colorScale={colorScale}
                              colorValue={colorValue}
+                />
+                <text
+                    className="axis-label"
+                    textAnchor="middle"
+                    x={innerWidth + 80}
+                    y={20}
+                >
+                    Species
+                </text>
+
+                <ColorLegend
+                    colorScale={colorScale}
+                    tickSize={5}
+                    innerWidth={innerWidth}
                 />
             </g>
         </svg>
