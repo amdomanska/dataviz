@@ -10,7 +10,7 @@ import {Migrants} from "./components/visualizations/Migrants"
 import {DATAVIZ as data} from "./data"
 
 function App() {
-    const [chosenViz, setChosenViz] = useState(data[2])
+    const [chosenViz, setChosenViz] = useState(data[3])
     const handleMenuClick = (viz) => {
         setChosenViz(viz);
     }

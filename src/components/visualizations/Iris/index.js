@@ -2,7 +2,7 @@ import React from 'react';
 import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
 import {AxisBottom} from "../../shared/AxisBottom";
-import {AxisLeft} from "./AxisLeft";
+import {LinearAxisLeft} from "../../shared/LinearAxisLeft";
 import {CircleMarks} from "./CircleMarks";
 import {ColorLegend} from "./ColorLegend";
 import {scaleLinear, extent, format, scaleOrdinal} from "d3"
@@ -99,7 +99,7 @@ export const Iris = ({url}) => {
                     >
                         {xLabel}
                     </text>
-                    <AxisLeft
+                    <LinearAxisLeft
                         yScale={yScale}
                         innerWidth={innerWidth}
                         tickFormat={tickFormat}

@@ -26,7 +26,7 @@ export const PermanentDrawerLeft = ({ handleMenuClick, dataVizList }) => {
         variant="permanent"
         anchor="left"
       >
-          <Toolbar><strong>Browse visualizations</strong></Toolbar>
+          <Toolbar><strong>Visualizations</strong></Toolbar>
         <List>
           {dataVizList.map((viz, index) => (
             <ListItem key={viz["key"]} disablePadding onClick={() => {handleMenuClick(viz)}}>

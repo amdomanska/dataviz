@@ -2,7 +2,7 @@ import React from 'react';
 import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
 import {max, scaleLinear, scaleBand, format,} from 'd3';
-import {AxisLeft} from './AxisLeft'
+import {OrdinalAxisLeft} from '../../shared/OrdinalAxisLeft'
 import {AxisBottom} from '../../shared/AxisBottom'
 
 import {Marks} from './Marks';
@@ -39,7 +39,7 @@ export const Population = ({url}) => {
     return (
         <svg width={width} height={height}>
             <g transform={`translate(${margin.left},${margin.top})`}>
-                <AxisLeft
+                <OrdinalAxisLeft
                     yScale={yScale}
                 />
                 <AxisBottom

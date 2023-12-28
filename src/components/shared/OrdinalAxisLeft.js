@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AxisLeft = ({yScale}) =>
+export const OrdinalAxisLeft = ({yScale}) =>
     yScale.domain().map(tickValue => (
         <g className="tick" key={tickValue}>
             <text

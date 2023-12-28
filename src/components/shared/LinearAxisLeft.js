@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AxisLeft = ({yScale, innerWidth, tickFormat}) =>
+export const LinearAxisLeft = ({yScale, innerWidth, tickFormat}) =>
     yScale.ticks().map(tickValue => (
         <g className="tick" key={tickValue} transform={`translate(0, ${yScale(tickValue)})`}>
             <line x2={innerWidth} />
