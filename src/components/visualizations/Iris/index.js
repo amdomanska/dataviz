@@ -43,10 +43,10 @@ export const Iris = ({url}) => {
     const tickFormat = tickValue => siFormat(tickValue)
 
     const xValue = d => d[xAttribute];
-    const xLabel = xAttribute;
+    const xLabel = attributes[xAttribute];
 
     const yValue = d => d[yAttribute];
-    const yLabel = yAttribute;
+    const yLabel = attributes[yAttribute];
 
     const xScale = scaleLinear()
         .domain(extent(data, xValue))

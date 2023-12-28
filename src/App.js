@@ -17,7 +17,7 @@ function App() {
     return (
         <div className="App">
             <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={data}/>
-            <div className="content">
+            <div className="content container">
                 {chosenViz &&
                     <DataViz viz={chosenViz}>
                         {chosenViz.key === "colors" && <Colors />}

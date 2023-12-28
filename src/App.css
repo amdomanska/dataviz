@@ -3,6 +3,7 @@
   text-align: left;
   background-color: #F8F8FF;
   height: 100vh;
+  padding-top: 3rem;
   color: #333333; }
   .App .content {
     position: relative;
