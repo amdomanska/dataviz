@@ -6,6 +6,7 @@ import {PermanentDrawerLeft} from "./components/PermanentDrawerLeft"
 import {Colors} from "./components/visualizations/Colors"
 import {Population} from "./components/visualizations/Population"
 import {Iris} from "./components/visualizations/Iris"
+import {Migrants} from "./components/visualizations/Migrants"
 import {DATAVIZ as data} from "./data"
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                         {chosenViz.key === "colors" && <Colors />}
                         {chosenViz.key === "population" && <Population />}
                         {chosenViz.key === "iris" && <Iris />}
+                        {chosenViz.key === "migrants" && <Migrants />}
                     </ DataViz>
                 }
             </div>
