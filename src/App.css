@@ -44,4 +44,7 @@ svg {
   gap: .5rem;
   margin-bottom: .5rem; }
 
+.color-legend {
+  cursor: pointer; }
+
 /*# sourceMappingURL=App.css.map */

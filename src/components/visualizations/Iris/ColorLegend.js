@@ -5,6 +5,7 @@ const yOffset = 15;
 export const ColorLegend = ({colorScale, tickSize, innerWidth, onHover, fadeOpacity, hoveredValue}) => (
     colorScale.domain().map((domainValue, i) => (
         <g
+            className="color-legend"
             transform={`translate(${innerWidth+xOffset},${50+i*(tickSize+yOffset)})`}
             key={i}
             onMouseEnter={() => onHover(domainValue)}
