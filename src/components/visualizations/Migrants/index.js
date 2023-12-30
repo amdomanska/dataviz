@@ -17,7 +17,7 @@ export const Migrants = ({url}) => {
     return (
         <svg width={width} height={height}>
             <BubbleMap data={filteredData} width={width} height={0.7*height}/>
-            <Histogram data={filteredData}
+            <Histogram data={data}
                        width={width}
                        height={0.3*height}
                        brushExtent={brushExtent}

@@ -1,4 +1,4 @@
-import {useContext, useEffect, useRef} from "react";
+import {useContext, useEffect, useRef, useMemo} from "react";
 import {AreaContext} from "../../../AreaContext";
 import {extent, scaleTime, scaleLinear, max, timeFormat, format, bin, timeMonths, sum, brushX, select} from "d3";
 import {LinearAxisLeft} from "../../../shared/LinearAxisLeft";
@@ -21,17 +21,19 @@ export const Histogram = ({data, width, height, setBrushExtent}) => {
         .range([0, innerWidth])
         .nice();
 
-    const [start, stop] = xScale.domain();
-    const bins = bin()
-        .value(xValue)
-        .domain(xScale.domain())
-        .thresholds(timeMonths(start, stop))
+    const binnedData = useMemo(() => {
+        const [start, stop] = xScale.domain();
+        const bins = bin()
+            .value(xValue)
+            .domain(xScale.domain())
+            .thresholds(timeMonths(start, stop))
 
-    const binnedData = bins(data).map(array => ({
-        y: sum(array, yValue),
-        x0: array.x0,
-        x1: array.x1
-    }));
+        return bins(data).map(array => ({
+            y: sum(array, yValue),
+            x0: array.x0,
+            x1: array.x1
+        }));
+    },[yValue])
 
     const getSum = d => d.y
     const yScale = scaleLinear()
