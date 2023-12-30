@@ -8,9 +8,10 @@ import {Population} from "./components/visualizations/Population"
 import {Iris} from "./components/visualizations/Iris"
 import {Migrants} from "./components/visualizations/Migrants"
 import {DATAVIZ as data} from "./data"
+import {NeurodevelopmentalDisorders} from "./components/visualizations/NeurodevelopmentalDisorders";
 
 function App() {
-    const [chosenViz, setChosenViz] = useState(data[3])
+    const [chosenViz, setChosenViz] = useState(data[4])
     const handleMenuClick = (viz) => {
         setChosenViz(viz);
     }
@@ -25,6 +26,7 @@ function App() {
                         {chosenViz.key === "population" && <Population />}
                         {chosenViz.key === "iris" && <Iris />}
                         {chosenViz.key === "migrants" && <Migrants />}
+                        {chosenViz.key === "neurodevelopmental_disorders" && <NeurodevelopmentalDisorders />}
                     </ DataViz>
                 }
             </div>

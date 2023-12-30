@@ -29,7 +29,7 @@ svg {
   background-color: #FFF;
   vertical-align: text-top; }
   svg .tick line {
-    stroke: #C0C0BB; }
+    stroke: #dcdcd8; }
   svg .tick text {
     fill: #635F5D; }
   svg .mark--rect {

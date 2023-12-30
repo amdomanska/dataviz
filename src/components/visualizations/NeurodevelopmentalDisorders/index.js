@@ -1,18 +1,19 @@
-import React from 'react';
+import {useMemo, useContext, useState} from "react";
 import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
-import {max, scaleLinear, scaleBand, format,} from 'd3';
-import {OrdinalAxisLeft} from '../../shared/OrdinalAxisLeft'
-import {AxisBottom} from '../../shared/AxisBottom'
+import {format, max, scaleBand, scaleLinear, extent} from "d3";
+import {OrdinalAxisLeft} from "../../shared/OrdinalAxisLeft";
+import {AxisBottom} from "../../shared/AxisBottom";
+import {RectMarks} from "../../shared/RectMarks";
 
-import {RectMarks} from '../../shared/RectMarks';
+const margin = {top: 10, right: 120, bottom: 10, left: 320}
 
-const margin = {top: 50, right: 30, bottom: 80, left: 240}
-
-export const Population = ({url}) => {
-
+export const NeurodevelopmentalDisorders = ({url}) => {
     const data = useData(url);
-    const {height, width} = React.useContext(AreaContext)
+    const [region, setRegion] = useState("World");
+    const [year, setYear] = useState(2019);
+    const width = window.innerWidth*0.75;
+    const height = window.innerHeight*0.5;
 
     if (data === null) {
         return <p>Loading...</p>
@@ -21,18 +22,20 @@ export const Population = ({url}) => {
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.right - margin.left;
 
-    const yValue = x => x.Country;
-    const xValue = x => x.Population;
+    const yValue = x => x.disorder;
+    const xValue = x => x.cases;
 
-    const siFormat = format('.2s')
-    const xAxisTickFormat = tickValue => siFormat(tickValue).replace('G', 'B')
+    const filteredData = data.filter((d) => d.year === year && d.entity === region).sort((a,b) => xValue(b) - xValue(a));
+
+    const siFormat = format(",.0f")
+    const xAxisTickFormat = tickValue => siFormat(tickValue)
 
     const xScale = scaleLinear()
-        .domain([0, max(data, xValue)])
+        .domain([0, max(filteredData, xValue)])
         .range([0, innerWidth]);
 
     const yScale = scaleBand()
-        .domain(data.map(yValue))
+        .domain(filteredData.map(yValue))
         .range([0, innerHeight])
         .paddingInner(0.15);
 
@@ -45,27 +48,19 @@ export const Population = ({url}) => {
                 <AxisBottom
                     xScale={xScale}
                     innerHeight={innerHeight}
-                    tickFormat={xAxisTickFormat}
+                    tickFormat={null}
                 />
-                <text
-                    className="axis-label"
-                    x={innerWidth / 2}
-                    y={height-margin.bottom+15}
-                    textAnchor="middle"
-                >
-                    Population
-                </text>
                 <RectMarks
-                    data={data}
+                    data={filteredData}
                     xScale={xScale}
                     yScale={yScale}
                     xValue={xValue}
                     yValue={yValue}
                     tooltipFormat={xAxisTickFormat}
+                    valueFormat={xAxisTickFormat}
                 />
             </g>
         </svg>
     )
-
 
 }
