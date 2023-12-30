@@ -5,7 +5,7 @@ export const RectMarks = ({
                           }) =>
     data.map((d, i) => {
         return (
-            <g className="tick">
+            <g className="tick" key={i}>
                 <rect
                     key={i}
                     x={0}
