@@ -1,4 +1,4 @@
-import {useMemo, useContext, useState} from "react";
+import React, {useMemo, useContext, useState} from "react";
 import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
 import {format, max, scaleBand, scaleLinear, extent} from "d3";
@@ -6,18 +6,20 @@ import {OrdinalAxisLeft} from "../../shared/OrdinalAxisLeft";
 import {AxisBottom} from "../../shared/AxisBottom";
 import {RectMarks} from "../../shared/RectMarks";
 
-const margin = {top: 10, right: 120, bottom: 10, left: 320}
+const margin = {top: 80, right: 120, bottom: 30, left: 320}
 
 export const NeurodevelopmentalDisorders = ({url}) => {
     const data = useData(url);
     const [region, setRegion] = useState("World");
-    const [year, setYear] = useState(2019);
+    const [year, setYear] = useState(1990);
     const width = window.innerWidth*0.75;
     const height = window.innerHeight*0.5;
 
     if (data === null) {
         return <p>Loading...</p>
     }
+
+    const title = `Number with a mental or neurodevelopmental disorder by type, ${region}, ${year}`
 
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.right - margin.left;
@@ -42,6 +44,14 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     return (
         <svg width={width} height={height}>
             <g transform={`translate(${margin.left},${margin.top})`}>
+                <text
+                    className="axis-label"
+                    x={margin.left}
+                    y={-margin.top/2+10}
+                    textAnchor="middle"
+                >
+                    {title}
+                </text>
                 <OrdinalAxisLeft
                     yScale={yScale}
                 />

@@ -23,8 +23,7 @@ export const DATAVIZ = [{
     },
     {
         key: "neurodevelopmental_disorders",
-        title: "Number with a mental or neurodevelopmental disorder by type,\n" +
-            "World, 2019",
+        title: "Neurodevelopmental disorders",
         url: "https://gist.githubusercontent.com/amdomanska/776b9a5ebee5e903e654ae8d5bf16aba/raw/a92bab230e0aa5e5b3d688a0697397b34bf21e55/number-with-mental-and-neurodevelopmental-disorders-by-type.csv",
         info: `Substance use disorders are not included. Figures attempt to provide a true estimate (going beyond reported diagnosis) ofprevalence based on medical, epidemiological data, surveys and meta-regression modelling. Data source: <a href='OurWorldInData.org/mental-health' target='_blank'> IHME, Global Burden of Disease (2019) </a>`
     }
