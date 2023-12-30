@@ -8,7 +8,6 @@ export const useData = (url) => {
             d.total = +d["Total Dead and Missing"];
             d.date = new Date(d["Reported Date"]);
             d.location = d["Location Coordinates"].split(",").map(d=>+d).reverse();
-            // d.coords = d['Location Coordinates'].split(',').map(d => +d).reverse();
             return d;
         }
         csv(url, row).then(data => {

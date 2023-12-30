@@ -1,13 +1,13 @@
-import React, {useContext} from "react";
+import {useContext, useEffect, useRef} from "react";
 import {AreaContext} from "../../../AreaContext";
-import {extent, scaleTime, scaleLinear, max, timeFormat, format, bin, timeMonths, sum} from "d3";
+import {extent, scaleTime, scaleLinear, max, timeFormat, format, bin, timeMonths, sum, brushX, select} from "d3";
 import {LinearAxisLeft} from "../../../shared/LinearAxisLeft";
 import {AxisBottom} from "../../../shared/AxisBottom";
 import {Marks} from "./Marks";
 
 const margin = {top: 10, right: 30, bottom: 30, left: 45};
 
-export const Histogram = ({data, width, height}) => {
+export const Histogram = ({data, width, height, setBrushExtent}) => {
     const context = useContext(AreaContext)
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.bottom - margin.top;
@@ -39,6 +39,16 @@ export const Histogram = ({data, width, height}) => {
         .range([0, innerHeight])
         .nice();
 
+    const brushRef = useRef();
+
+    useEffect(() => {
+        const brush = brushX().extent([[0,0], [innerWidth, innerHeight]]);
+        brush(select(brushRef.current));
+        brush.on('brush end', (e) => {
+            setBrushExtent(e.selection && e.selection.map(xScale.invert));
+        });
+    }, [innerWidth, innerHeight, setBrushExtent])
+
     return (
         <g transform={`translate(${margin.left},${context.height - height + margin.top})`}>
             <LinearAxisLeft
@@ -61,6 +71,7 @@ export const Histogram = ({data, width, height}) => {
                 innerHeight={innerHeight}
                 format={xAxisTickFormat}
             />
+            <g ref={brushRef} />
         </g>
     )
 }
