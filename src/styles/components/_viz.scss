@@ -14,7 +14,11 @@ svg {
 
   .mark {
     &--rect {
-      fill: #137B80;
+      fill: $marks;
+    }
+    &--circular {
+      fill: $marks;
+      opacity: 0.2;
     }
   }
 

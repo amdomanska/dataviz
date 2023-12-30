@@ -5,12 +5,10 @@ import {LinearAxisLeft} from "../../../shared/LinearAxisLeft";
 import {AxisBottom} from "../../../shared/AxisBottom";
 import {Marks} from "./Marks";
 
-const margin = {top: 20, right: 30, bottom: 65, left: 45};
+const margin = {top: 10, right: 30, bottom: 30, left: 45};
 
-export const Histogram = ({data}) => {
-    const context = useContext(AreaContext);
-    const width = context.width;
-    const height = context.height * 0.5;
+export const Histogram = ({data, width, height}) => {
+    const context = useContext(AreaContext)
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.bottom - margin.top;
 
@@ -42,29 +40,27 @@ export const Histogram = ({data}) => {
         .nice();
 
     return (
-        <svg width={width} height={height}>
-            <g transform={`translate(${margin.left},${margin.top})`}>
-                <LinearAxisLeft
-                    yScale={yScale}
-                    innerWidth={innerWidth}
-                    tickFormat={format("")}
-                />
-                <AxisBottom
-                    xScale={xScale}
-                    innerHeight={innerHeight}
-                    tickFormat={xAxisTickFormat}
-                />
-                <Marks
-                    data={binnedData}
-                    xScale={xScale}
-                    xValue={xValue}
-                    yScale={yScale}
-                    yValue={getSum}
-                    innerWidth={innerWidth}
-                    innerHeight={innerHeight}
-                    format={xAxisTickFormat}
-                />
-            </g>
-        </svg>
+        <g transform={`translate(${margin.left},${context.height - height + margin.top})`}>
+            <LinearAxisLeft
+                yScale={yScale}
+                innerWidth={innerWidth}
+                tickFormat={format("")}
+            />
+            <AxisBottom
+                xScale={xScale}
+                innerHeight={innerHeight}
+                tickFormat={xAxisTickFormat}
+            />
+            <Marks
+                data={binnedData}
+                xScale={xScale}
+                xValue={xValue}
+                yScale={yScale}
+                yValue={getSum}
+                innerWidth={innerWidth}
+                innerHeight={innerHeight}
+                format={xAxisTickFormat}
+            />
+        </g>
     )
 }

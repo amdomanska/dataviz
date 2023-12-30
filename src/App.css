@@ -33,7 +33,10 @@ svg {
   svg .tick text {
     fill: #635F5D; }
   svg .mark--rect {
-    fill: #137B80; }
+    fill: #0A0A93; }
+  svg .mark--circular {
+    fill: #0A0A93;
+    opacity: 0.2; }
   svg .axis-label {
     font-size: 2em;
     fill: #635F5D; }
@@ -46,5 +49,16 @@ svg {
 
 .color-legend {
   cursor: pointer; }
+
+.world-marks .sphere {
+  fill: #fbfbfb; }
+.world-marks .graticules {
+  fill: none;
+  stroke: #ececec; }
+.world-marks .land {
+  fill: #ececec; }
+.world-marks .interiors {
+  fill: none;
+  stroke: #d9dfe0; }
 
 /*# sourceMappingURL=App.css.map */
