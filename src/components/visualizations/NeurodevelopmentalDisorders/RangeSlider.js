@@ -3,9 +3,9 @@ import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import {max, min} from "d3";
 
-export default function RangeSlider({data}) {
-    const [rangeValue, setRangeValue] = React.useState([2009, 2019]);
-    const [singleValue, setSingleValue] = React.useState(2019);
+export default function RangeSlider({data, setYear, defaultValue}) {
+    const [rangeValue, setRangeValue] = React.useState([defaultValue, defaultValue+1]);
+    const [singleValue, setSingleValue] = React.useState(defaultValue);
     const [isSingleMode, setIsSingleMode] = React.useState(true);
 
     const yearValue = d => d.year;
@@ -19,13 +19,16 @@ export default function RangeSlider({data}) {
             if (Math.abs(newValue-singleValue) > 1) {
                 setRangeValue([singleValue, newValue].sort());
                 setIsSingleMode(false);
+                setYear(rangeValue);
             }
             else {
                 setSingleValue(newValue);
+                setYear([newValue, newValue]);
             }
         }
         else {
             setRangeValue(newValue);
+            setYear(rangeValue);
         }
     }
 

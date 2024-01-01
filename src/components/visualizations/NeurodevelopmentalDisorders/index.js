@@ -9,13 +9,15 @@ import {Slider} from "@mui/material"
 import SelectSearch from 'react-select-search';
 import 'react-select-search/style.css'
 import RangeSlider from "./RangeSlider"
+import {BarChart} from "./barChart";
 
 const margin = {top: 120, right: 120, bottom: 80, left: 320}
+const defaultYear = 2019;
 
 export const NeurodevelopmentalDisorders = ({url}) => {
     const data = useData(url);
     const [region, setRegion] = useState("World");
-    const [year, setYear] = useState(1990);
+    const [year, setYear] = useState([defaultYear, defaultYear]);
     const width = window.innerWidth * 0.75;
     const height = window.innerHeight * 0.5;
 
@@ -31,7 +33,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const yValue = x => x.disorder;
     const xValue = x => x.cases;
 
-    const filteredData = data.filter((d) => d.year === year && d.entity === region).sort((a, b) => xValue(b) - xValue(a));
+    const filteredData = data.filter((d) => d.year >= year[0] && d.year <= year[1] && d.entity === region).sort((a, b) => xValue(b) - xValue(a));
 
     const siFormat = format(",.0f")
     const xAxisTickFormat = tickValue => siFormat(tickValue)
@@ -51,7 +53,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     return (
         <>
-            <RangeSlider data={data} />
+            <RangeSlider data={data} setYear={setYear} defaultValue={defaultYear}/>
             <SelectSearch options={options} value="sv" name="language" placeholder="Choose region" search={true}
                           onChange={e => setRegion(e)} value={region}/>
             <svg width={width} height={height}>
@@ -70,25 +72,21 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                         y={-margin.top / 2 + 30}
                         textAnchor="start"
                     >
-                        {region}, {year}
+                        {region}, {year[0] === year[1] ? year[0] : `${year[0]}-${year[1]}`}
                     </text>
-                    <OrdinalAxisLeft
-                        yScale={yScale}
-                    />
-                    <AxisBottom
-                        xScale={xScale}
-                        innerHeight={innerHeight}
-                        tickFormat={null}
-                    />
-                    <RectMarks
-                        data={filteredData}
-                        xScale={xScale}
-                        yScale={yScale}
-                        xValue={xValue}
-                        yValue={yValue}
-                        tooltipFormat={xAxisTickFormat}
-                        valueFormat={xAxisTickFormat}
-                    />
+
+                    {year[0] === year[1] &&
+                        <BarChart
+                            data={filteredData}
+                            xScale={xScale}
+                            yScale={yScale}
+                            xValue={xValue}
+                            yValue={yValue}
+                            tooltipFormat={xAxisTickFormat}
+                            valueFormat={xAxisTickFormat}
+                            innerHeight={innerHeight}
+                        />
+                    }
                 </g>
                 {/*<Slider*/}
                 {/*    data={data}*/}
