@@ -5,8 +5,10 @@ import {OrdinalAxisLeft} from "../../shared/OrdinalAxisLeft";
 import {AxisBottom} from "../../shared/AxisBottom";
 import {RectMarks} from "../../shared/RectMarks";
 import {Slider} from "./Slider";
+import SelectSearch from 'react-select-search';
+import 'react-select-search/style.css'
 
-const margin = {top: 80, right: 120, bottom: 70, left: 320}
+const margin = {top: 120, right: 120, bottom: 80, left: 320}
 
 export const NeurodevelopmentalDisorders = ({url}) => {
     const data = useData(url);
@@ -19,7 +21,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
         return <p>Loading...</p>
     }
 
-    const title = `Number with a mental or neurodevelopmental disorder by type, ${region}, ${year}`
+    const title = `Number with a mental or neurodevelopmental disorder by type`
 
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.right - margin.left;
@@ -41,44 +43,60 @@ export const NeurodevelopmentalDisorders = ({url}) => {
         .range([0, innerHeight])
         .paddingInner(0.15);
 
+
+    const countries = new Set(data.map(d => d.entity));
+    const options = [...countries].map(d => ({"name": d, "value": d}));
+
     return (
-        <svg width={width} height={height}>
-            <g transform={`translate(${margin.left},${margin.top})`}>
-                <text
-                    className="axis-label"
-                    x={margin.left}
-                    y={-margin.top / 2 + 10}
-                    textAnchor="middle"
-                >
-                    {title}
-                </text>
-                <OrdinalAxisLeft
-                    yScale={yScale}
+        <>
+            <SelectSearch options={options} value="sv" name="language" placeholder="Choose region" search={true}
+                          onChange={e => setRegion(e)} value={region}/>
+            <svg width={width} height={height}>
+                <g transform={`translate(${margin.left},${margin.top})`}>
+                    <text
+                        className="axis-label"
+                        x={-margin.left + 20}
+                        y={-margin.top / 2 - 10}
+                        textAnchor="start"
+                    >
+                        {title}
+                    </text>
+                    <text
+                        className="axis-label"
+                        x={-margin.left+20}
+                        y={-margin.top / 2 + 30}
+                        textAnchor="start"
+                    >
+                        {region}, {year}
+                    </text>
+                        <OrdinalAxisLeft
+                            yScale={yScale}
+                        />
+                        <AxisBottom
+                            xScale={xScale}
+                            innerHeight={innerHeight}
+                            tickFormat={null}
+                        />
+                        <RectMarks
+                            data={filteredData}
+                            xScale={xScale}
+                            yScale={yScale}
+                            xValue={xValue}
+                            yValue={yValue}
+                            tooltipFormat={xAxisTickFormat}
+                            valueFormat={xAxisTickFormat}
+                        />
+                </g>
+                <Slider
+                    data={data}
+                    width={width}
+                    innerHeight={height}
+                    margin={margin}
+                    setYear={setYear}
+                    tickFormat={format("")}
                 />
-                <AxisBottom
-                    xScale={xScale}
-                    innerHeight={innerHeight}
-                    tickFormat={null}
-                />
-                <RectMarks
-                    data={filteredData}
-                    xScale={xScale}
-                    yScale={yScale}
-                    xValue={xValue}
-                    yValue={yValue}
-                    tooltipFormat={xAxisTickFormat}
-                    valueFormat={xAxisTickFormat}
-                />
-            </g>
-            <Slider
-                data={data}
-                width={width}
-                innerHeight={height}
-                margin={margin}
-                setYear={setYear}
-                tickFormat={format("")}
-            />
-        </svg>
+            </svg>
+        </>
     )
 
 }

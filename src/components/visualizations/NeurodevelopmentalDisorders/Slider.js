@@ -18,7 +18,6 @@ export const Slider = ({
         const maxYear = max(data, yearValue);
         const step = 1;
         const availableYears = Array.from({length: Math.floor((maxYear - minYear) / step) + 1}, (_, index) => minYear + index * step);
-        console.log(availableYears)
 
         const slider = sliderBottom()
             .min(minYear)
@@ -32,5 +31,5 @@ export const Slider = ({
         slider(select(sliderRef.current));
     }, [width, setYear])
 
-    return <g className="slider" ref={sliderRef} transform={`translate(${20}, ${innerHeight-margin.top+30})`} />
+    return <g className="slider" ref={sliderRef} transform={`translate(${20}, ${innerHeight-margin.top+75})`} />
 }
