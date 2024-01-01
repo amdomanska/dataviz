@@ -4,9 +4,11 @@ import {format, max, scaleBand, scaleLinear} from "d3";
 import {OrdinalAxisLeft} from "../../shared/OrdinalAxisLeft";
 import {AxisBottom} from "../../shared/AxisBottom";
 import {RectMarks} from "../../shared/RectMarks";
-import {Slider} from "./Slider";
+// import {Slider} from "./Slider";
+import {Slider} from "@mui/material"
 import SelectSearch from 'react-select-search';
 import 'react-select-search/style.css'
+import RangeSlider from "./RangeSlider"
 
 const margin = {top: 120, right: 120, bottom: 80, left: 320}
 
@@ -49,6 +51,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     return (
         <>
+            <RangeSlider data={data} />
             <SelectSearch options={options} value="sv" name="language" placeholder="Choose region" search={true}
                           onChange={e => setRegion(e)} value={region}/>
             <svg width={width} height={height}>
@@ -63,38 +66,38 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                     </text>
                     <text
                         className="axis-label"
-                        x={-margin.left+20}
+                        x={-margin.left + 20}
                         y={-margin.top / 2 + 30}
                         textAnchor="start"
                     >
                         {region}, {year}
                     </text>
-                        <OrdinalAxisLeft
-                            yScale={yScale}
-                        />
-                        <AxisBottom
-                            xScale={xScale}
-                            innerHeight={innerHeight}
-                            tickFormat={null}
-                        />
-                        <RectMarks
-                            data={filteredData}
-                            xScale={xScale}
-                            yScale={yScale}
-                            xValue={xValue}
-                            yValue={yValue}
-                            tooltipFormat={xAxisTickFormat}
-                            valueFormat={xAxisTickFormat}
-                        />
+                    <OrdinalAxisLeft
+                        yScale={yScale}
+                    />
+                    <AxisBottom
+                        xScale={xScale}
+                        innerHeight={innerHeight}
+                        tickFormat={null}
+                    />
+                    <RectMarks
+                        data={filteredData}
+                        xScale={xScale}
+                        yScale={yScale}
+                        xValue={xValue}
+                        yValue={yValue}
+                        tooltipFormat={xAxisTickFormat}
+                        valueFormat={xAxisTickFormat}
+                    />
                 </g>
-                <Slider
-                    data={data}
-                    width={width}
-                    innerHeight={height}
-                    margin={margin}
-                    setYear={setYear}
-                    tickFormat={format("")}
-                />
+                {/*<Slider*/}
+                {/*    data={data}*/}
+                {/*    width={width}*/}
+                {/*    innerHeight={height}*/}
+                {/*    margin={margin}*/}
+                {/*    setYear={setYear}*/}
+                {/*    tickFormat={format("")}*/}
+                {/*/>*/}
             </svg>
         </>
     )
