@@ -7,8 +7,10 @@ import RangeSlider from "./RangeSlider"
 import {BarChart} from "../../shared/barChart";
 import {AreaContext} from "../../AreaContext";
 import {MultilineChart} from "./multilineChart";
+import {ColorLegend} from "../../shared/ColorLegend";
 
-const margin = {top: 120, right: 120, bottom: 80, left: 320}
+const barChartMargin = {top: 120, right: 120, bottom: 80, left: 320}
+const multilineChartMargin = {top: 120, right: 350, bottom: 80, left: 75}
 const defaultYear = 2019;
 
 export const NeurodevelopmentalDisorders = ({url}) => {
@@ -16,6 +18,8 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const [region, setRegion] = useState("World");
     const [year, setYear] = useState([defaultYear, defaultYear]);
     const {width, height} = useContext(AreaContext);
+
+    let margin = year[0] === year[1] ? barChartMargin : multilineChartMargin;
 
     if (data === null) {
         return <p>Loading...</p>
@@ -72,9 +76,12 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const countries = new Set(data.map(d => d.entity));
     const options = [...countries].map(d => ({"name": d, "value": d}));
 
+    const marksRadius= 3;
+    const hoveredMarksRadius = 5;
+
     return (
         <>
-            <RangeSlider data={data} setYear={setYear} defaultValue={defaultYear}/>
+            <RangeSlider data={data} setYear={setYear} defaultValue={defaultYear} />
             <SelectSearch options={options} value="sv" name="language" placeholder="Choose region" search={true}
                           onChange={e => setRegion(e)} value={region}/>
             <svg width={width} height={height}>
@@ -108,19 +115,30 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                             innerHeight={innerHeight}
                         />
                         :
-                        <MultilineChart
-                            data={filteredData}
-                            xScale={timeScale}
-                            xValue={timeValue}
-                            yScale={casesScale}
-                            yValue={casesValue}
-                            innerWidth={innerWidth}
-                            innerHeight={innerHeight}
-                            xTickFormat={tFormat}
-                            yTickFormat={casesFormat}
-                            colorValue={colorValue}
-                            colorScale={colorScale}
-                        />
+                        <>
+                            <MultilineChart
+                                data={filteredData}
+                                xScale={timeScale}
+                                xValue={timeValue}
+                                yScale={casesScale}
+                                yValue={casesValue}
+                                innerWidth={innerWidth}
+                                innerHeight={innerHeight}
+                                xTickFormat={tFormat}
+                                yTickFormat={casesFormat}
+                                colorValue={colorValue}
+                                colorScale={colorScale}
+                                marksRadius={marksRadius}
+                            />
+                            <ColorLegend
+                                colorScale={colorScale}
+                                tickSize={5}
+                                innerWidth={innerWidth}
+                                onHover={e=>console.log(e)}
+                                fadeOpacity={0.2}
+                                hoveredValue={null}
+                            />
+                        </>
                     }
                 </g>
             </svg>

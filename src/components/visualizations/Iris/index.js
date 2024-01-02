@@ -3,7 +3,7 @@ import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
 import {AxisBottom} from "../../shared/AxisBottom";
 import {LinearAxisLeft} from "../../shared/LinearAxisLeft";
-import {CircleMarks} from "./CircleMarks";
+import {CircleMarks} from "../../shared/CircleMarks";
 import {ColorLegend} from "../../shared/ColorLegend";
 import {scaleLinear, extent, format, scaleOrdinal} from "d3"
 import DropdownButton from "react-bootstrap/DropdownButton";
