@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect, useContext} from "react";
 import {useData} from "./useData";
-import {extent, format, max, scaleBand, scaleLinear, scaleTime, timeFormat, timeYear} from "d3";
+import {extent, format, max, scaleBand, scaleLinear, scaleOrdinal, scaleTime, timeFormat, timeYear} from "d3";
 import SelectSearch from 'react-select-search';
 import 'react-select-search/style.css'
 import RangeSlider from "./RangeSlider"
@@ -52,15 +52,22 @@ export const NeurodevelopmentalDisorders = ({url}) => {
         .paddingInner(0.15);
 
     const timeScale = scaleTime()
-        .domain(extent(data_1disorder, timeValue))
+        .domain(extent(filteredData, timeValue))
         .range([0, innerWidth])
         .nice();
 
     const casesScale = scaleLinear()
-        .domain(extent(data_1disorder, casesValue))
+        .domain(extent(filteredData, casesValue))
         .range([innerHeight,0])
         .nice();
 
+    const disorders = new Set(data.map(d => d.disorder));
+    const colorValue = d => d.disorder;
+
+    const colors = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
+    const colorScale = scaleOrdinal()
+        .domain(disorders)
+        .range(colors)
 
     const countries = new Set(data.map(d => d.entity));
     const options = [...countries].map(d => ({"name": d, "value": d}));
@@ -102,7 +109,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                         />
                         :
                         <MultilineChart
-                            data={data_1disorder}
+                            data={filteredData}
                             xScale={timeScale}
                             xValue={timeValue}
                             yScale={casesScale}
@@ -111,6 +118,8 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                             innerHeight={innerHeight}
                             xTickFormat={tFormat}
                             yTickFormat={casesFormat}
+                            colorValue={colorValue}
+                            colorScale={colorScale}
                         />
                     }
                 </g>
