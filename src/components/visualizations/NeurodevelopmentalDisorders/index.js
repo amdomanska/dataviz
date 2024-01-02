@@ -1,15 +1,12 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState, useRef, useEffect, useContext} from "react";
 import {useData} from "./useData";
-import {format, max, scaleBand, scaleLinear} from "d3";
-import {OrdinalAxisLeft} from "../../shared/OrdinalAxisLeft";
-import {AxisBottom} from "../../shared/AxisBottom";
-import {RectMarks} from "../../shared/RectMarks";
-// import {Slider} from "./Slider";
-import {Slider} from "@mui/material"
+import {extent, format, max, scaleBand, scaleLinear, scaleTime, timeFormat, timeYear} from "d3";
 import SelectSearch from 'react-select-search';
 import 'react-select-search/style.css'
 import RangeSlider from "./RangeSlider"
-import {BarChart} from "./barChart";
+import {BarChart} from "../../shared/barChart";
+import {AreaContext} from "../../AreaContext";
+import {MultilineChart} from "./multilineChart";
 
 const margin = {top: 120, right: 120, bottom: 80, left: 320}
 const defaultYear = 2019;
@@ -18,8 +15,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const data = useData(url);
     const [region, setRegion] = useState("World");
     const [year, setYear] = useState([defaultYear, defaultYear]);
-    const width = window.innerWidth * 0.75;
-    const height = window.innerHeight * 0.5;
+    const {width, height} = useContext(AreaContext);
 
     if (data === null) {
         return <p>Loading...</p>
@@ -30,22 +26,40 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.right - margin.left;
 
-    const yValue = x => x.disorder;
-    const xValue = x => x.cases;
+    const disorderValue = x => x.disorder;
+    const casesValue = x => x.cases;
+    const timeValue = x => new Date(x.year,0);
 
-    const filteredData = data.filter((d) => d.year >= year[0] && d.year <= year[1] && d.entity === region).sort((a, b) => xValue(b) - xValue(a));
+    const filteredData = data.filter((d) => d.year >= year[0] && d.year <= year[1] && d.entity === region).sort((a, b) => casesValue(b) - casesValue(a));
+    const data_1disorder = filteredData.filter((d) => d.disorder === "ADHD")
+
 
     const siFormat = format(",.0f")
     const xAxisTickFormat = tickValue => siFormat(tickValue)
 
+    const tFormat = timeFormat("%Y");
+
+    const cFormat = format(".2s")
+    const casesFormat = tickValue => cFormat(tickValue)
+
     const xScale = scaleLinear()
-        .domain([0, max(filteredData, xValue)])
+        .domain([0, max(filteredData, casesValue)])
         .range([0, innerWidth]);
 
     const yScale = scaleBand()
-        .domain(filteredData.map(yValue))
+        .domain(filteredData.map(disorderValue))
         .range([0, innerHeight])
         .paddingInner(0.15);
+
+    const timeScale = scaleTime()
+        .domain(extent(data_1disorder, timeValue))
+        .range([0, innerWidth])
+        .nice();
+
+    const casesScale = scaleLinear()
+        .domain(extent(data, casesValue))
+        .range([0, innerWidth])
+        .nice();
 
 
     const countries = new Set(data.map(d => d.entity));
@@ -75,16 +89,28 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                         {region}, {year[0] === year[1] ? year[0] : `${year[0]}-${year[1]}`}
                     </text>
 
-                    {year[0] === year[1] &&
+                    {year[0] === year[1] ?
                         <BarChart
                             data={filteredData}
                             xScale={xScale}
                             yScale={yScale}
-                            xValue={xValue}
-                            yValue={yValue}
+                            xValue={casesValue}
+                            yValue={disorderValue}
                             tooltipFormat={xAxisTickFormat}
                             valueFormat={xAxisTickFormat}
                             innerHeight={innerHeight}
+                        />
+                        :
+                        <MultilineChart
+                            data={data_1disorder}
+                            xScale={timeScale}
+                            xValue={timeValue}
+                            yScale={casesScale}
+                            yValue={casesValue}
+                            innerWidth={innerWidth}
+                            innerHeight={innerHeight}
+                            xTickFormat={tFormat}
+                            yTickFormat={casesFormat}
                         />
                     }
                 </g>

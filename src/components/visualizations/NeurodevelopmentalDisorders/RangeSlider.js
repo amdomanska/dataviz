@@ -14,7 +14,7 @@ export default function RangeSlider({data, setYear, defaultValue}) {
     const step = 1;
 
     const handleChange = (e, newValue) => {
-        console.log("singleValue: " + singleValue + ", newVaalue; " + newValue)
+        // console.log("singleValue: " + singleValue + ", newVaalue; " + newValue)
         if (isSingleMode) {
             if (Math.abs(newValue-singleValue) > 1) {
                 setRangeValue([singleValue, newValue].sort());

@@ -1,9 +1,10 @@
-import {OrdinalAxisLeft} from "../../shared/OrdinalAxisLeft";
-import {AxisBottom} from "../../shared/AxisBottom";
+import {OrdinalAxisLeft} from "./OrdinalAxisLeft";
+import {AxisBottom} from "./AxisBottom";
 import React from "react";
-import {RectMarks} from "../../shared/RectMarks";
+import {RectMarks} from "./RectMarks";
 
-export const BarChart = ({xScale, xValue, yScale, yValue, innerHeight, tooltipFormat, valueFormat, data}) => (<>
+export const BarChart = ({xScale, xValue, yScale, yValue, innerHeight, tooltipFormat, valueFormat, data}) => (
+    <>
         <OrdinalAxisLeft
             yScale={yScale}
         />

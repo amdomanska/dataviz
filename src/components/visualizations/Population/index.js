@@ -6,6 +6,7 @@ import {OrdinalAxisLeft} from '../../shared/OrdinalAxisLeft'
 import {AxisBottom} from '../../shared/AxisBottom'
 
 import {RectMarks} from '../../shared/RectMarks';
+import {BarChart} from "../../shared/barChart";
 
 const margin = {top: 50, right: 30, bottom: 80, left: 240}
 
@@ -39,13 +40,15 @@ export const Population = ({url}) => {
     return (
         <svg width={width} height={height}>
             <g transform={`translate(${margin.left},${margin.top})`}>
-                <OrdinalAxisLeft
-                    yScale={yScale}
-                />
-                <AxisBottom
+                <BarChart
+                    data={data}
                     xScale={xScale}
+                    yScale={yScale}
+                    xValue={xValue}
+                    yValue={yValue}
+                    tooltipFormat={xAxisTickFormat}
+                    valueFormat={xAxisTickFormat}
                     innerHeight={innerHeight}
-                    tickFormat={xAxisTickFormat}
                 />
                 <text
                     className="axis-label"
@@ -55,14 +58,6 @@ export const Population = ({url}) => {
                 >
                     Population
                 </text>
-                <RectMarks
-                    data={data}
-                    xScale={xScale}
-                    yScale={yScale}
-                    xValue={xValue}
-                    yValue={yValue}
-                    tooltipFormat={xAxisTickFormat}
-                />
             </g>
         </svg>
     )

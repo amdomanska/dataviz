@@ -12,7 +12,6 @@ export const useData = (url) => {
             data.sort((x,y) => {
                 return descending(x.Population, y.Population)
             })
-            console.log(data[0])
             setData(data.slice(0,10));
         });
     }, [url])
