@@ -57,8 +57,8 @@ export const NeurodevelopmentalDisorders = ({url}) => {
         .nice();
 
     const casesScale = scaleLinear()
-        .domain(extent(data, casesValue))
-        .range([0, innerWidth])
+        .domain(extent(data_1disorder, casesValue))
+        .range([innerHeight,0])
         .nice();
 
 

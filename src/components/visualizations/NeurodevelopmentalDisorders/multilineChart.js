@@ -31,7 +31,7 @@ export const MultilineChart = ({
                 innerHeight={innerHeight}
                 tickFormat={xTickFormat}
             />
-            <path d={line(data)} />
+            <path fill="none" stroke="black" d={line(data)} />
         </>
     )
 }
