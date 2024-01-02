@@ -1,6 +1,6 @@
-import React, {useState, useRef, useEffect, useContext} from "react";
+import React, {useState, useContext} from "react";
 import {useData} from "./useData";
-import {extent, format, max, scaleBand, scaleLinear, scaleOrdinal, scaleTime, timeFormat, timeYear} from "d3";
+import {extent, format, max, scaleBand, scaleLinear, scaleOrdinal, scaleTime, timeFormat} from "d3";
 import SelectSearch from 'react-select-search';
 import 'react-select-search/style.css'
 import RangeSlider from "./RangeSlider"
@@ -66,7 +66,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     const colors = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
     const colorScale = scaleOrdinal()
-        .domain(disorders)
+        .domain([...disorders])
         .range(colors)
 
     const countries = new Set(data.map(d => d.entity));
@@ -123,14 +123,6 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                         />
                     }
                 </g>
-                {/*<Slider*/}
-                {/*    data={data}*/}
-                {/*    width={width}*/}
-                {/*    innerHeight={height}*/}
-                {/*    margin={margin}*/}
-                {/*    setYear={setYear}*/}
-                {/*    tickFormat={format("")}*/}
-                {/*/>*/}
             </svg>
         </>
     )
