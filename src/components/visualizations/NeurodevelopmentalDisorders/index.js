@@ -20,7 +20,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const [hoveredValue, setHoveredValue] = useState(null)
     const {width, height} = useContext(AreaContext);
 
-    console.log(year);
+    // console.log(year);
     const isBarChartMode = year[0] === year[1];
 
     let margin = isBarChartMode ? barChartMargin : multilineChartMargin;

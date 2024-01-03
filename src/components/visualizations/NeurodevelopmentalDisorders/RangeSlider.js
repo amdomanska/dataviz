@@ -1,12 +1,13 @@
-import React from 'react';
+import {useState, useRef} from 'react';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import {max, min} from "d3";
 
 export default function RangeSlider({data, setYear, defaultValue}) {
-    const [rangeValue, setRangeValue] = React.useState([defaultValue, defaultValue+1]);
-    const [singleValue, setSingleValue] = React.useState(defaultValue);
-    const [isSingleMode, setIsSingleMode] = React.useState(true);
+    const [rangeValue, setRangeValue] = useState([defaultValue, defaultValue+1]);
+    const [singleValue, setSingleValue] = useState(defaultValue);
+    const [isSingleMode, setIsSingleMode] = useState(true);
+    const isAfterClick = useRef(false);
 
     const yearValue = d => d.year;
     const minYear = min(data, yearValue);
@@ -14,26 +15,26 @@ export default function RangeSlider({data, setYear, defaultValue}) {
     const step = 1;
 
     const handleChange = (e, newValue) => {
-        if (isSingleMode) {
+        if (isAfterClick.current && isSingleMode) {
             if (Math.abs(newValue-singleValue) > 1) {
-                const newRangeValue = [singleValue, newValue].sort();
-                setYear(newRangeValue);
-                setRangeValue([singleValue, newValue].sort());
                 setIsSingleMode(false);
-            }
-            else {
-                setSingleValue(newValue);
-                setYear([newValue, newValue]);
+                const newRangeValue = [singleValue, newValue].sort()
+                setRangeValue(newRangeValue);
+                setYear(newRangeValue);
             }
         }
         else {
-            setRangeValue(newValue);
-            setYear(rangeValue);
+            isSingleMode ? setSingleValue(newValue) : setRangeValue(newValue);
+            setYear(isSingleMode ? [newValue, newValue] : newValue);
         }
+        isAfterClick.current = false;
+    }
+
+    const handleMouseDown = () => {
+        isAfterClick.current = true;
     }
 
     const handleMouseUp = () => {
-        console.log("mouse up!")
         if (!isSingleMode) {
             if (rangeValue[0] === rangeValue[1]) {
                 setSingleValue(rangeValue[0]);
@@ -54,6 +55,7 @@ export default function RangeSlider({data, setYear, defaultValue}) {
                 marks
                 step={step}
                 onMouseUp={handleMouseUp}
+                onMouseDown={handleMouseDown}
             />
         </Box>
     );
