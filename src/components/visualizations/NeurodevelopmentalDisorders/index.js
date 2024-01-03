@@ -17,9 +17,13 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const data = useData(url);
     const [region, setRegion] = useState("World");
     const [year, setYear] = useState([defaultYear, defaultYear]);
+    const [hoveredValue, setHoveredValue] = useState(null)
     const {width, height} = useContext(AreaContext);
 
-    let margin = year[0] === year[1] ? barChartMargin : multilineChartMargin;
+    console.log(year);
+    const isBarChartMode = year[0] === year[1];
+
+    let margin = isBarChartMode ? barChartMargin : multilineChartMargin;
 
     if (data === null) {
         return <p>Loading...</p>
@@ -35,8 +39,6 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const timeValue = x => new Date(x.year,0);
 
     const filteredData = data.filter((d) => d.year >= year[0] && d.year <= year[1] && d.entity === region).sort((a, b) => casesValue(b) - casesValue(a));
-    const data_1disorder = filteredData.filter((d) => d.disorder === "ADHD")
-
 
     const siFormat = format(",.0f")
     const xAxisTickFormat = tickValue => siFormat(tickValue)
@@ -66,7 +68,6 @@ export const NeurodevelopmentalDisorders = ({url}) => {
         .nice();
 
     const disorders = new Set(data.map(d => d.disorder));
-    const colorValue = d => d.disorder;
 
     const colors = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
     const colorScale = scaleOrdinal()
@@ -81,8 +82,8 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     return (
         <>
-            <RangeSlider data={data} setYear={setYear} defaultValue={defaultYear} />
-            <SelectSearch options={options} value="sv" name="language" placeholder="Choose region" search={true}
+            <RangeSlider data={data} setYear={setYear} defaultValue={defaultYear}/>
+            <SelectSearch options={options} name="language" placeholder="Choose region" search={true}
                           onChange={e => setRegion(e)} value={region}/>
             <svg width={width} height={height}>
                 <g transform={`translate(${margin.left},${margin.top})`}>
@@ -103,7 +104,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                         {region}, {year[0] === year[1] ? year[0] : `${year[0]}-${year[1]}`}
                     </text>
 
-                    {year[0] === year[1] ?
+                    {isBarChartMode ?
                         <BarChart
                             data={filteredData}
                             xScale={xScale}
@@ -126,17 +127,19 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                                 innerHeight={innerHeight}
                                 xTickFormat={tFormat}
                                 yTickFormat={casesFormat}
-                                colorValue={colorValue}
+                                colorValue={disorderValue}
                                 colorScale={colorScale}
                                 marksRadius={marksRadius}
+                                hoveredValue={hoveredValue}
+                                fadeOpacity={0.2}
                             />
                             <ColorLegend
                                 colorScale={colorScale}
                                 tickSize={5}
                                 innerWidth={innerWidth}
-                                onHover={e=>console.log(e)}
+                                onHover={setHoveredValue}
                                 fadeOpacity={0.2}
-                                hoveredValue={null}
+                                hoveredValue={hoveredValue}
                             />
                         </>
                     }

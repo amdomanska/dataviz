@@ -14,12 +14,12 @@ export default function RangeSlider({data, setYear, defaultValue}) {
     const step = 1;
 
     const handleChange = (e, newValue) => {
-        // console.log("singleValue: " + singleValue + ", newVaalue; " + newValue)
         if (isSingleMode) {
             if (Math.abs(newValue-singleValue) > 1) {
+                const newRangeValue = [singleValue, newValue].sort();
+                setYear(newRangeValue);
                 setRangeValue([singleValue, newValue].sort());
                 setIsSingleMode(false);
-                setYear(rangeValue);
             }
             else {
                 setSingleValue(newValue);
@@ -33,9 +33,11 @@ export default function RangeSlider({data, setYear, defaultValue}) {
     }
 
     const handleMouseUp = () => {
+        console.log("mouse up!")
         if (!isSingleMode) {
             if (rangeValue[0] === rangeValue[1]) {
                 setSingleValue(rangeValue[0]);
+                setYear([rangeValue[0], rangeValue[0]]);
                 setIsSingleMode(true);
             }
         }

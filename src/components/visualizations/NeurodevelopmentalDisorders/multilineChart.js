@@ -16,7 +16,9 @@ export const MultilineChart = ({
                                    yTickFormat,
                                    colorScale,
                                    colorValue,
-                                   marksRadius
+                                   marksRadius,
+                                   fadeOpacity,
+                                   hoveredValue
                                }) => {
 
     const [hovered, setHovered] = useState(false);
@@ -36,9 +38,11 @@ export const MultilineChart = ({
         if (hovered) {
             let x = e.clientX;
             let year = xScale.invert(x).getFullYear()-13
-            console.log(year)
         }
     }
+
+    const filteredData = data_by_disorder.flat().filter(d=> (d.disorder === hoveredValue))
+
 
     return (
         <>
@@ -55,19 +59,52 @@ export const MultilineChart = ({
                 innerHeight={innerHeight}
                 tickFormat={xTickFormat}
             />
-            {data_by_disorder.map((d, i) =>
-                <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} d={line(d)}/>
-            )}
-            <CircleMarks data={data_by_disorder.flat()}
-                         xScale={xScale}
-                         xValue={xValue}
-                         yScale={yScale}
-                         yValue={yValue}
-                         radius={marksRadius}
-                         colorScale={colorScale}
-                         colorValue={colorValue}
-                         tooltip={false}
-            />
+            <g opacity={hoveredValue ? fadeOpacity : 1}>
+                {data_by_disorder.map((d, i) =>
+                    <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} d={line(d)}/>
+                )}
+                <CircleMarks data={data_by_disorder.flat()}
+                             xScale={xScale}
+                             xValue={xValue}
+                             yScale={yScale}
+                             yValue={yValue}
+                             radius={marksRadius}
+                             colorScale={colorScale}
+                             colorValue={colorValue}
+                             tooltip={false}
+                />
+            </g>
+            <g opacity={hoveredValue ? fadeOpacity : 1}>
+                {data_by_disorder.map((d, i) =>
+                    <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} d={line(d)}/>
+                )}
+                <CircleMarks data={data_by_disorder.flat()}
+                             xScale={xScale}
+                             xValue={xValue}
+                             yScale={yScale}
+                             yValue={yValue}
+                             radius={marksRadius}
+                             colorScale={colorScale}
+                             colorValue={colorValue}
+                             tooltip={false}
+                />
+            </g>
+            {filteredData.length > 0 &&
+                <>
+                    <path fill="none" stroke={colorScale(colorValue(filteredData[0]))} d={line(filteredData)}/>
+                    <CircleMarks data={filteredData}
+                                 xScale={xScale}
+                                 xValue={xValue}
+                                 yScale={yScale}
+                                 yValue={yValue}
+                                 radius={marksRadius}
+                                 colorScale={colorScale}
+                                 colorValue={colorValue}
+                                 tooltip={false}
+                    />
+                </>
+            }
+
             ));
 
         </>
