@@ -11,7 +11,7 @@ import {ColorLegend} from "../../shared/ColorLegend";
 
 const barChartMargin = {top: 120, right: 120, bottom: 80, left: 320}
 const multilineChartMargin = {top: 120, right: 350, bottom: 80, left: 75}
-const defaultYear = 2019;
+const defaultYear = 1990;
 
 export const NeurodevelopmentalDisorders = ({url}) => {
     const data = useData(url);
