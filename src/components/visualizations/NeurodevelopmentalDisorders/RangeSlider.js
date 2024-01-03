@@ -10,24 +10,35 @@ export default function RangeSlider({data, setYear, defaultValue}) {
     const [isSingleMode, setIsSingleMode] = useState(true);
     const [isAnimating, setIsAnimating] = useState(false);
     const isAfterClick = useRef(false);
-    let intervalId = useRef(null);
+    let intervalId = useRef();
 
     const yearValue = d => d.year;
     const minYear = min(data, yearValue);
     const maxYear = max(data, yearValue);
     const step = 1;
 
-    const runAnimation = () => {
-        // Start the animation when isAnimating becomes true
-        let newValue = isSingleMode ? singleValue : rangeValue[1];
-        intervalId.current = setInterval(() => {
-            setIsAnimating(true);
-            newValue = newValue + 1;
-            if (newValue !== 2019) {
-                setRangeValue([rangeValue[0], newValue]);
-                setYear([rangeValue[0], newValue])
+    useEffect(() => {
+        // Cleanup interval on component unmount
+        return () => {
+            if (intervalId.current){
+                clearInterval(intervalId.current);
             }
-            else {
+        };
+    }, []);
+
+    const runAnimation = () => {
+        let newValue = isSingleMode ? singleValue : rangeValue[1];
+        setIsAnimating(true);
+
+        intervalId.current = setInterval(() => {
+            console.log("start: ",rangeValue);
+            newValue = newValue + 1;
+            if (newValue <= 2019) {
+                setIsSingleMode(false);
+                const newRangeValue = isSingleMode ? [singleValue, newValue] : [rangeValue[0], newValue];
+                setRangeValue(newRangeValue);
+                setYear(newRangeValue);
+            } else {
                 clearInterval(intervalId.current);
                 setIsAnimating(false);
             }
@@ -37,6 +48,7 @@ export default function RangeSlider({data, setYear, defaultValue}) {
     const stopAnimation = () => {
         clearInterval(intervalId.current);
         setIsAnimating(false);
+        console.log("stop: ", rangeValue);
     }
 
     const handleChange = (e, newValue) => {
