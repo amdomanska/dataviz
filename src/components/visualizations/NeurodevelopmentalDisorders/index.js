@@ -82,7 +82,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     return (
         <>
-            <RangeSlider data={data} setYear={setYear} defaultValue={defaultYear}/>
+            <RangeSlider data={data} setYear={setYear} defaultValue={defaultYear} width={innerWidth}/>
             <SelectSearch options={options} name="language" placeholder="Choose region" search={true}
                           onChange={e => setRegion(e)} value={region}/>
             <svg width={width} height={height}>

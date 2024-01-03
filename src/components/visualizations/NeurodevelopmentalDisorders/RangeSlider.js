@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import {max, min} from "d3";
 
-export default function RangeSlider({data, setYear, defaultValue}) {
+export default function RangeSlider({data, setYear, defaultValue, width}) {
     const [rangeValue, setRangeValue] = useState([defaultValue, defaultValue+1]);
     const [singleValue, setSingleValue] = useState(defaultValue);
     const [isSingleMode, setIsSingleMode] = useState(true);
@@ -82,7 +82,7 @@ export default function RangeSlider({data, setYear, defaultValue}) {
     }
 
     return (
-        <Box sx={{ width: 300 }}>
+        <Box sx={{ width: width }}>
             <Button variant="outlined" onClick={!isAnimating ? runAnimation : stopAnimation}>{!isAnimating ? `Start Animation` : `Stop Animation`}</Button>
             <Slider
                 value={isSingleMode ? singleValue : rangeValue}
