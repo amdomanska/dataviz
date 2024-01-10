@@ -77,7 +77,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const countries = new Set(data.map(d => d.entity));
     const options = [...countries].map(d => ({"name": d, "value": d}));
 
-    const marksRadius= 3;
+    const marksRadius= 4;
     const hoveredMarksRadius = 5;
 
     return (
