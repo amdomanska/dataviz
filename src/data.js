@@ -26,5 +26,18 @@ export const DATAVIZ = [{
         title: "Neurodevelopmental disorders",
         url: "https://gist.githubusercontent.com/amdomanska/776b9a5ebee5e903e654ae8d5bf16aba/raw/a92bab230e0aa5e5b3d688a0697397b34bf21e55/number-with-mental-and-neurodevelopmental-disorders-by-type.csv",
         info: `Substance use disorders are not included. Figures attempt to provide a true estimate (going beyond reported diagnosis) ofprevalence based on medical, epidemiological data, surveys and meta-regression modelling. Data source: <a href='OurWorldInData.org/mental-health' target='_blank'> IHME, Global Burden of Disease (2019) </a>`
-    }
+    },
+    {
+        key: "image_analyzer",
+        title: "Image Analyzer",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/2560px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+        info: "Using brush interactively a rectangular zone of a famous painting is defined. We extract the pixel values from that zone and display a histogram atop."
+    },
+    {
+        key: "neurodevelopmental_disorders_2",
+        title: "Neurodevelopmental disorders with brush",
+        url: "https://gist.githubusercontent.com/amdomanska/776b9a5ebee5e903e654ae8d5bf16aba/raw/a92bab230e0aa5e5b3d688a0697397b34bf21e55/number-with-mental-and-neurodevelopmental-disorders-by-type.csv",
+        info: `Substance use disorders are not included. Figures attempt to provide a true estimate (going beyond reported diagnosis) ofprevalence based on medical, epidemiological data, surveys and meta-regression modelling. Data source: <a href='OurWorldInData.org/mental-health' target='_blank'> IHME, Global Burden of Disease (2019) </a>`
+    },
+
 ]

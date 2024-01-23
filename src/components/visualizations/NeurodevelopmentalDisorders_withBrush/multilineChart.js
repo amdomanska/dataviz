@@ -1,8 +1,8 @@
 import {LinearAxisLeft} from "../../shared/LinearAxisLeft";
 import {AxisBottom} from "../../shared/AxisBottom";
-import {useState} from "react";
-import * as d3 from "d3";
 import {CircleMarks} from "../../shared/CircleMarks";
+import {useEffect, useRef} from "react";
+import {brushX, select, line} from "d3";
 
 export const MultilineChart = ({
                                    data,
@@ -18,10 +18,11 @@ export const MultilineChart = ({
                                    colorValue,
                                    marksRadius,
                                    fadeOpacity,
-                                   hoveredValue
+                                   hoveredValue,
+                                   enableBrush = false,
+                                   onBrush = null,
+                                   defaultTimeRange
                                }) => {
-
-    const [hovered, setHovered] = useState(false);
 
     const disorders = new Set(data.map(d => d.disorder));
 
@@ -29,26 +30,35 @@ export const MultilineChart = ({
         return data.filter(x => x.disorder === d);
     });
 
-    const line = d3.line()
+    const filteredData = data_by_disorder.flat().filter(d => (d.disorder === hoveredValue))
+
+    const chartLine = line()
         .x(d => xScale(new Date(d.year, 0)))
         .y(d => yScale(d.cases));
 
-    const handleMouseMove = (e) => {
-        if (hovered) {
-            let x = e.clientX;
-            let year = xScale.invert(x).getFullYear()
-            console.log(year)
-        }
-    }
+    const brushRef = useRef();
 
-    const filteredData = data_by_disorder.flat().filter(d=> (d.disorder === hoveredValue))
+    useEffect(() => {
+        const brush = brushX().extent([[0, 0], [innerWidth, innerHeight]]);
+        brush(select(brushRef.current));
+        brush.on('brush end', (e) => {
+            decodeSelection(e.selection);
+        });
+        const decodeSelection = (brushExtent) => {
+            if (brushExtent) {
+                let selectedTimeValues = brushExtent.map(xScale.invert);
+                let years = selectedTimeValues.map(date => date.getFullYear());
+                onBrush(years);
+            } else {
+                onBrush(defaultTimeRange);
+            }
+        }
+    }, [innerWidth, innerHeight])
 
 
     return (
         <>
-            <rect width={innerWidth} height={innerHeight} fill="white" opacity={0} onMouseOver={(e) => setHovered(true)}
-                  onMouseMove={(e) => handleMouseMove(e)}
-                  onMouseLeave={() => setHovered(false)}/>
+            {enableBrush && <g ref={brushRef}/>}
             <LinearAxisLeft
                 yScale={yScale}
                 innerWidth={innerWidth}
@@ -61,7 +71,7 @@ export const MultilineChart = ({
             />
             <g opacity={hoveredValue ? fadeOpacity : 1}>
                 {data_by_disorder.map((d, i) =>
-                    <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} strokeWidth={3} d={line(d)}/>
+                    <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} strokeWidth={3} d={chartLine(d)}/>
                 )}
                 <CircleMarks data={data_by_disorder.flat()}
                              xScale={xScale}
@@ -76,7 +86,7 @@ export const MultilineChart = ({
             </g>
             <g opacity={hoveredValue ? fadeOpacity : 1}>
                 {data_by_disorder.map((d, i) =>
-                    <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} strokeWidth={1.5} d={line(d)}/>
+                    <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} strokeWidth={1.5} d={chartLine(d)}/>
                 )}
                 <CircleMarks data={data_by_disorder.flat()}
                              xScale={xScale}
@@ -91,7 +101,8 @@ export const MultilineChart = ({
             </g>
             {filteredData.length > 0 &&
                 <>
-                    <path fill="none" stroke={colorScale(colorValue(filteredData[0]))} strokeWidth={1.5} d={line(filteredData)}/>
+                    <path fill="none" stroke={colorScale(colorValue(filteredData[0]))} strokeWidth={1.5}
+                          d={line(filteredData)}/>
                     <CircleMarks data={filteredData}
                                  xScale={xScale}
                                  xValue={xValue}
