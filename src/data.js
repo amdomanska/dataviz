@@ -36,8 +36,14 @@ export const DATAVIZ = [{
     {
         key: "neurodevelopmental_disorders_2",
         title: "Neurodevelopmental disorders with brush",
-        url: "https://gist.githubusercontent.com/amdomanska/776b9a5ebee5e903e654ae8d5bf16aba/raw/a92bab230e0aa5e5b3d688a0697397b34bf21e55/number-with-mental-and-neurodevelopmental-disorders-by-type.csv",
+        url: "https://gist.githubusercontent.com/amdomanska/56e7cb5803523a05463c833fc57c1886/raw/34b3349e51b6a4250e6f409314361422f492ec0b/nddisorders.csv",
         info: `Substance use disorders are not included. Figures attempt to provide a true estimate (going beyond reported diagnosis) ofprevalence based on medical, epidemiological data, surveys and meta-regression modelling. Data source: <a href='OurWorldInData.org/mental-health' target='_blank'> IHME, Global Burden of Disease (2019) </a>`
+    },
+    {
+        key: "showAndTell",
+        title: "React&D3",
+        url: "https://gist.githubusercontent.com/amdomanska/56e7cb5803523a05463c833fc57c1886/raw/34b3349e51b6a4250e6f409314361422f492ec0b/nddisorders.csv",
+        info: ``
     },
 
 ]

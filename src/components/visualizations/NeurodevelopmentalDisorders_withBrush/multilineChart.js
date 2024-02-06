@@ -71,21 +71,6 @@ export const MultilineChart = ({
             />
             <g opacity={hoveredValue ? fadeOpacity : 1}>
                 {data_by_disorder.map((d, i) =>
-                    <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} strokeWidth={3} d={chartLine(d)}/>
-                )}
-                <CircleMarks data={data_by_disorder.flat()}
-                             xScale={xScale}
-                             xValue={xValue}
-                             yScale={yScale}
-                             yValue={yValue}
-                             radius={marksRadius}
-                             colorScale={colorScale}
-                             colorValue={colorValue}
-                             tooltip={false}
-                />
-            </g>
-            <g opacity={hoveredValue ? fadeOpacity : 1}>
-                {data_by_disorder.map((d, i) =>
                     <path key={i} fill="none" stroke={colorScale(colorValue(d[0]))} strokeWidth={1.5} d={chartLine(d)}/>
                 )}
                 <CircleMarks data={data_by_disorder.flat()}
@@ -96,7 +81,7 @@ export const MultilineChart = ({
                              radius={marksRadius}
                              colorScale={colorScale}
                              colorValue={colorValue}
-                             tooltip={false}
+                             tooltip={true}
                 />
             </g>
             {filteredData.length > 0 &&

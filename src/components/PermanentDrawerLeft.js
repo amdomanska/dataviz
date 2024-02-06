@@ -10,9 +10,9 @@ import Toolbar from "@mui/material/Toolbar"
 
 const drawerWidth = 240;
 
-export const PermanentDrawerLeft = ({ handleMenuClick, dataVizList }) => {
+export const PermanentDrawerLeft = ({ handleMenuClick, hidden, dataVizList }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    !hidden && <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Drawer
         sx={{

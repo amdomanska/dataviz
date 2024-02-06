@@ -10,27 +10,32 @@ import {Migrants} from "./components/visualizations/Migrants"
 import {DATAVIZ as data} from "./data"
 import {NeurodevelopmentalDisorders} from "./components/visualizations/NeurodevelopmentalDisorders";
 import {NeurodevelopmentalDisorders_withBrush} from "./components/visualizations/NeurodevelopmentalDisorders_withBrush";
-import {ImageAnalyzer} from "./components/visualizations/ImageAnalyzer"
+import {ImageAnalyzer} from "./components/visualizations/ImageAnalyzer";
+import {ShowAndTell} from "./components/visualizations/ShowAndTell";
 
 function App() {
-    const [chosenViz, setChosenViz] = useState(data[6])
+    const [chosenViz, setChosenViz] = useState(data[7]);
+    const [hidden, setHidden] = useState(true);
     const handleMenuClick = (viz) => {
         setChosenViz(viz);
     }
 
     return (
         <div className="App">
-            <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={data}/>
+            <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={data} hidden={hidden}/>
             <div className="content container">
+                <button onClick={() => setHidden(prevState => !prevState)} className="data_source">{hidden ? 'Show navigation' : 'Hide navigation'}</button>
+
                 {chosenViz &&
                     <DataViz viz={chosenViz}>
-                        {chosenViz.key === "colors" && <Colors />}
-                        {chosenViz.key === "population" && <Population />}
-                        {chosenViz.key === "iris" && <Iris />}
-                        {chosenViz.key === "migrants" && <Migrants />}
-                        {chosenViz.key === "neurodevelopmental_disorders" && <NeurodevelopmentalDisorders />}
-                        {chosenViz.key === "neurodevelopmental_disorders_2" && <NeurodevelopmentalDisorders_withBrush />}
-                        {chosenViz.key === "image_analyzer" && <ImageAnalyzer />}
+                        {chosenViz.key === "colors" && <Colors/>}
+                        {chosenViz.key === "population" && <Population/>}
+                        {chosenViz.key === "iris" && <Iris/>}
+                        {chosenViz.key === "migrants" && <Migrants/>}
+                        {chosenViz.key === "neurodevelopmental_disorders" && <NeurodevelopmentalDisorders/>}
+                        {chosenViz.key === "neurodevelopmental_disorders_2" && <NeurodevelopmentalDisorders_withBrush/>}
+                        {chosenViz.key === "showAndTell" && <ShowAndTell/>}
+                        {chosenViz.key === "image_analyzer" && <ImageAnalyzer/>}
                     </ DataViz>
                 }
             </div>

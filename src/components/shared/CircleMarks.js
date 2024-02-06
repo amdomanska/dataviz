@@ -1,6 +1,16 @@
 import React from 'react';
 
-export const CircleMarks = ({data, xScale, xValue, yScale, yValue, radius, colorScale, colorValue, tooltip=true}) =>
+export const CircleMarks = ({
+                                data,
+                                xScale,
+                                xValue,
+                                yScale,
+                                yValue,
+                                radius,
+                                colorScale,
+                                colorValue,
+                                tooltip = true
+                            }) =>
     data.map((d, idx) => (
         <circle
             key={idx}
@@ -10,6 +20,6 @@ export const CircleMarks = ({data, xScale, xValue, yScale, yValue, radius, color
             r={radius}
             fill={colorScale(colorValue(d))}
         >
-            {tooltip && <title>{xValue(d)}</title>}
+            {tooltip && <title>{yValue(d)}</title>}
         </circle>
     ));
