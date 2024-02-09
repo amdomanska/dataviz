@@ -85,6 +85,8 @@ export const ShowAndTell = () => {
 
     const filteredData = dataByDisorder.flat().filter(d => d.disorder === hoveredValue);
 
+    const fadeOpacity = 0.2;
+
     return (
         <>
             <svg width={width} height={height}>
@@ -127,6 +129,8 @@ export const ShowAndTell = () => {
                         tickSize={marksRadius}
                         innerWidth={innerWidth}
                         onHover={setHoveredValue}
+                        hoveredValue={hoveredValue}
+                        fadeOpacity={fadeOpacity}
                     />
                 </g>
             </svg>
