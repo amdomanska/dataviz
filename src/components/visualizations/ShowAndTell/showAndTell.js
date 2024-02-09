@@ -83,8 +83,6 @@ export const ShowAndTell = () => {
     const cFormat = format(".2s")
     const tFormat = timeFormat("%Y");
 
-    const filteredData = dataByDisorder.flat().filter(d => d.disorder === hoveredValue);
-
     const fadeOpacity = 0.2;
 
     return (
@@ -122,7 +120,6 @@ export const ShowAndTell = () => {
                         marksRadius={marksRadius}
                         hoveredValue={hoveredValue}
                         fadeOpacity={0.2}
-                        filteredData={filteredData}
                     />
                     <Legend
                         colorScale={colorScale}

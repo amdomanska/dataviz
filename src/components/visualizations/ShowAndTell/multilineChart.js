@@ -17,9 +17,9 @@ export const MultilineChart = ({
                                    marksRadius,
                                    innerWidth,
                                    hoveredValue,
-                                   fadeOpacity,
-                                   filteredData
+                                   fadeOpacity
                                }) => {
+    const filteredData = data.flat().filter(d => d.disorder === hoveredValue);
     return (<>
         <LeftAxis yScale={yScale} casesFormat={cFormat} innerWidth={innerWidth}/>
         <TimeAxis xScale={xScale} tickFormat={tFormat} innerHeight={innerHeight}/>
