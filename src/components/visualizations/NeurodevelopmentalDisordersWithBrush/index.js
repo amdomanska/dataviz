@@ -22,7 +22,7 @@ const labelsMap = {
     "Current number of cases of schizophrenia, in both sexes aged all ages": "Schizophrenia"
 }
 
-export const NeurodevelopmentalDisorders_withBrush = ({url}) => {
+export const NeurodevelopmentalDisordersWithBrush = ({url}) => {
     const [data, setData] = useState(null);
 
     useEffect(() => {

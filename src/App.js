@@ -9,7 +9,7 @@ import {Iris} from "./components/visualizations/Iris"
 import {Migrants} from "./components/visualizations/Migrants"
 import {DATAVIZ as data} from "./data"
 import {NeurodevelopmentalDisorders} from "./components/visualizations/NeurodevelopmentalDisorders";
-import {NeurodevelopmentalDisorders_withBrush} from "./components/visualizations/NeurodevelopmentalDisorders_withBrush";
+import {NeurodevelopmentalDisordersWithBrush} from "./components/visualizations/NeurodevelopmentalDisordersWithBrush";
 import {ImageAnalyzer} from "./components/visualizations/ImageAnalyzer";
 import {ShowAndTell} from "./components/visualizations/ShowAndTell/showAndTell";
 
@@ -33,7 +33,7 @@ function App() {
                         {chosenViz.key === "iris" && <Iris/>}
                         {chosenViz.key === "migrants" && <Migrants/>}
                         {chosenViz.key === "neurodevelopmental_disorders" && <NeurodevelopmentalDisorders/>}
-                        {chosenViz.key === "neurodevelopmental_disorders_2" && <NeurodevelopmentalDisorders_withBrush/>}
+                        {chosenViz.key === "neurodevelopmental_disorders_2" && <NeurodevelopmentalDisordersWithBrush/>}
                         {chosenViz.key === "showAndTell" && <ShowAndTell/>}
                         {chosenViz.key === "image_analyzer" && <ImageAnalyzer/>}
                     </ DataViz>
