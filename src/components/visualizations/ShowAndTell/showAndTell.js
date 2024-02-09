@@ -60,7 +60,7 @@ export const ShowAndTell = () => {
     }
 
     const disorders = new Set(data.map(d => d.disorder));
-    const data_by_disorder = [...disorders].map(d => {
+    const dataByDisorder = [...disorders].map(d => {
         return data.filter(x => x.disorder === d);
     });
 
@@ -83,7 +83,7 @@ export const ShowAndTell = () => {
     const cFormat = format(".2s")
     const tFormat = timeFormat("%Y");
 
-    const filteredData = data_by_disorder.flat().filter(d => d.disorder === hoveredValue);
+    const filteredData = dataByDisorder.flat().filter(d => d.disorder === hoveredValue);
 
     return (
         <>
@@ -110,7 +110,7 @@ export const ShowAndTell = () => {
                         tFormat={tFormat}
                         timeValue={timeValue}
                         innerHeight={innerHeight}
-                        data={data_by_disorder}
+                        data={dataByDisorder}
                         xScale={xScale}
                         yScale={yScale}
                         yValue={yValue}
