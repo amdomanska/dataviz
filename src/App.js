@@ -11,7 +11,7 @@ import {DATAVIZ as data} from "./data"
 import {NeurodevelopmentalDisorders} from "./components/visualizations/NeurodevelopmentalDisorders";
 import {NeurodevelopmentalDisorders_withBrush} from "./components/visualizations/NeurodevelopmentalDisorders_withBrush";
 import {ImageAnalyzer} from "./components/visualizations/ImageAnalyzer";
-import {ShowAndTell} from "./components/visualizations/ShowAndTell";
+import {ShowAndTell} from "./components/visualizations/ShowAndTell/showAndTell";
 
 function App() {
     const [chosenViz, setChosenViz] = useState(data[7]);
