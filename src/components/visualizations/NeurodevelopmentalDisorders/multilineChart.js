@@ -30,13 +30,13 @@ export const MultilineChart = ({
     });
 
     const line = d3.line()
-        .x(d => xScale(new Date(d.year, 0)))
+        .x(d => xScale(d.year))
         .y(d => yScale(d.cases));
 
     const handleMouseMove = (e) => {
         if (hovered) {
             let x = e.clientX;
-            let year = xScale.invert(x).getFullYear()
+            let year = xScale.invert(x)
             console.log(year)
         }
     }

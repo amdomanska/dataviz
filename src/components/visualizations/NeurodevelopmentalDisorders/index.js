@@ -37,13 +37,14 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const disorderValue = x => x.disorder;
     const casesValue = x => x.cases;
     const timeValue = x => new Date(x.year,0);
+    const fakeTimeValue = x => x.year;
 
     const filteredData = data.filter((d) => d.year >= year[0] && d.year <= year[1] && d.entity === region).sort((a, b) => casesValue(b) - casesValue(a));
 
     const siFormat = format(",.0f")
     const xAxisTickFormat = tickValue => siFormat(tickValue)
 
-    const tFormat = timeFormat("%Y");
+    const tFormat = format("");
 
     const cFormat = format(".2s")
     const casesFormat = tickValue => cFormat(tickValue)
@@ -59,6 +60,11 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     const timeScale = scaleTime()
         .domain(extent(filteredData, timeValue))
+        .range([0, innerWidth])
+        .nice();
+
+    const fakeTimeScale = scaleLinear()
+        .domain(extent(filteredData, fakeTimeValue))
         .range([0, innerWidth])
         .nice();
 
@@ -119,8 +125,8 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                         <>
                             <MultilineChart
                                 data={filteredData}
-                                xScale={timeScale}
-                                xValue={timeValue}
+                                xScale={fakeTimeScale}
+                                xValue={fakeTimeValue}
                                 yScale={casesScale}
                                 yValue={casesValue}
                                 innerWidth={innerWidth}

@@ -14,7 +14,7 @@ import {ImageAnalyzer} from "./components/visualizations/ImageAnalyzer";
 import {ShowAndTell} from "./components/visualizations/ShowAndTell/showAndTell";
 
 function App() {
-    const [chosenViz, setChosenViz] = useState(data[7]);
+    const [chosenViz, setChosenViz] = useState(data[4]);
     const [hidden, setHidden] = useState(true);
     const handleMenuClick = (viz) => {
         setChosenViz(viz);
