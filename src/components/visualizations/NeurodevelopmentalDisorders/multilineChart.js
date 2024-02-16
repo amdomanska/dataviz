@@ -3,6 +3,7 @@ import {AxisBottom} from "../../shared/AxisBottom";
 import {useState} from "react";
 import * as d3 from "d3";
 import {CircleMarks} from "../../shared/CircleMarks";
+import {VerticalTooltip} from "./verticalTooltip";
 
 export const MultilineChart = ({
                                    data,
@@ -20,11 +21,9 @@ export const MultilineChart = ({
                                    fadeOpacity,
                                    hoveredValue
                                }) => {
-
-    const [hovered, setHovered] = useState(false);
+    const [hoveredYear, setYearHovered] = useState(null);
 
     const disorders = new Set(data.map(d => d.disorder));
-
     const data_by_disorder = [...disorders].map(d => {
         return data.filter(x => x.disorder === d);
     });
@@ -33,22 +32,11 @@ export const MultilineChart = ({
         .x(d => xScale(d.year))
         .y(d => yScale(d.cases));
 
-    const handleMouseMove = (e) => {
-        if (hovered) {
-            let x = e.clientX;
-            let year = xScale.invert(x)
-            console.log(year)
-        }
-    }
-
-    const filteredData = data_by_disorder.flat().filter(d=> (d.disorder === hoveredValue))
+    const filteredData = data_by_disorder.flat().filter(d => (d.disorder === hoveredValue))
 
 
     return (
         <>
-            <rect width={innerWidth} height={innerHeight} fill="white" opacity={0} onMouseOver={(e) => setHovered(true)}
-                  onMouseMove={(e) => handleMouseMove(e)}
-                  onMouseLeave={() => setHovered(false)}/>
             <LinearAxisLeft
                 yScale={yScale}
                 innerWidth={innerWidth}
@@ -56,6 +44,7 @@ export const MultilineChart = ({
             />
             <AxisBottom
                 xScale={xScale}
+                innerWidth={innerWidth}
                 innerHeight={innerHeight}
                 tickFormat={xTickFormat}
             />
@@ -87,11 +76,13 @@ export const MultilineChart = ({
                              colorScale={colorScale}
                              colorValue={colorValue}
                              tooltip={false}
+                             marked={hoveredYear}
                 />
             </g>
             {filteredData.length > 0 &&
                 <>
-                    <path fill="none" stroke={colorScale(colorValue(filteredData[0]))} strokeWidth={1.5} d={line(filteredData)}/>
+                    <path fill="none" stroke={colorScale(colorValue(filteredData[0]))} strokeWidth={1.5}
+                          d={line(filteredData)}/>
                     <CircleMarks data={filteredData}
                                  xScale={xScale}
                                  xValue={xValue}
@@ -101,12 +92,21 @@ export const MultilineChart = ({
                                  colorScale={colorScale}
                                  colorValue={colorValue}
                                  tooltip={false}
+                                 marked={hoveredYear}
                     />
                 </>
             }
 
             ));
-
+            <VerticalTooltip
+                xScale={xScale}
+                colorScale={colorScale}
+                data={data}
+                innerHeight={innerHeight}
+                innerWidth={innerWidth}
+                tickSize={marksRadius}
+                setYearHovered={setYearHovered}
+            />
         </>
     )
 }

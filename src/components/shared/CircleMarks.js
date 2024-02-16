@@ -9,6 +9,7 @@ export const CircleMarks = ({
                                 radius,
                                 colorScale,
                                 colorValue,
+                                marked = null,
                                 tooltip = true
                             }) =>
     data.map((d, idx) => (
@@ -17,7 +18,7 @@ export const CircleMarks = ({
             className="mark"
             cx={xScale(xValue(d))}
             cy={yScale(yValue(d))}
-            r={radius}
+            r={marked === xValue(d) ? radius+2 : radius}
             fill={colorScale(colorValue(d))}
         >
             {tooltip && <title>{yValue(d)}</title>}

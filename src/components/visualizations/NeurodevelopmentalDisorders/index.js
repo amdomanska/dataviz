@@ -36,7 +36,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     const disorderValue = x => x.disorder;
     const casesValue = x => x.cases;
-    const timeValue = x => new Date(x.year,0);
+    const timeValue = x => new Date(x.year, 0);
     const fakeTimeValue = x => x.year;
 
     const filteredData = data.filter((d) => d.year >= year[0] && d.year <= year[1] && d.entity === region).sort((a, b) => casesValue(b) - casesValue(a));
@@ -70,12 +70,12 @@ export const NeurodevelopmentalDisorders = ({url}) => {
 
     const casesScale = scaleLinear()
         .domain(extent(filteredData, casesValue))
-        .range([innerHeight,0])
+        .range([innerHeight, 0])
         .nice();
 
     const disorders = new Set(data.map(d => d.disorder));
 
-    const colors = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
+    const colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
     const colorScale = scaleOrdinal()
         .domain([...disorders])
         .range(colors)
@@ -83,7 +83,7 @@ export const NeurodevelopmentalDisorders = ({url}) => {
     const countries = new Set(data.map(d => d.entity));
     const options = [...countries].map(d => ({"name": d, "value": d}));
 
-    const marksRadius= 4;
+    const marksRadius = 4;
     const hoveredMarksRadius = 5;
 
     return (
@@ -109,7 +109,14 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                     >
                         {region}, {year[0] === year[1] ? year[0] : `${year[0]}-${year[1]}`}
                     </text>
-
+                    <ColorLegend
+                        colorScale={colorScale}
+                        tickSize={5}
+                        innerWidth={innerWidth}
+                        onHover={setHoveredValue}
+                        fadeOpacity={0.2}
+                        hoveredValue={hoveredValue}
+                    />
                     {isBarChartMode ?
                         <BarChart
                             data={filteredData}
@@ -138,14 +145,6 @@ export const NeurodevelopmentalDisorders = ({url}) => {
                                 marksRadius={marksRadius}
                                 hoveredValue={hoveredValue}
                                 fadeOpacity={0.2}
-                            />
-                            <ColorLegend
-                                colorScale={colorScale}
-                                tickSize={5}
-                                innerWidth={innerWidth}
-                                onHover={setHoveredValue}
-                                fadeOpacity={0.2}
-                                hoveredValue={hoveredValue}
                             />
                         </>
                     }

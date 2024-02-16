@@ -45,5 +45,11 @@ export const DATAVIZ = [{
         url: "https://gist.githubusercontent.com/amdomanska/56e7cb5803523a05463c833fc57c1886/raw/34b3349e51b6a4250e6f409314361422f492ec0b/nddisorders.csv",
         info: ``
     },
+    {
+        key: "pandemics",
+        title: "A Timeline of Pandemics",
+        url: "https://gist.githubusercontent.com/amdomanska/56e7cb5803523a05463c833fc57c1886/raw/34b3349e51b6a4250e6f409314361422f492ec0b/nddisorders.csv",
+        info: ``
+    },
 
 ]
