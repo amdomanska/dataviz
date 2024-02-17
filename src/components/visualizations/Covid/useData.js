@@ -11,7 +11,7 @@ export const useData = (url) => {
                     (
                         {
                             cases: +d.UK,
-                            date: new Date(d.date)
+                            date: new Date(d.date).setHours(0,0,0,0)
                         }
                     )
                 )

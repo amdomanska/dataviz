@@ -2,9 +2,10 @@ import React, {useState, useContext} from "react";
 import {extent, format, scaleLinear, scaleTime, timeFormat} from "d3";
 import {AreaContext} from "../../AreaContext";
 import {MultilineChart} from "./multilineChart";
+import {VerticalTooltip} from "./verticalTooltip";
 import {useData} from "./useData";
 
-const margin = {top: 20, right: 20, bottom: 80, left: 75}
+const margin = {top: 20, right: 300, bottom: 80, left: 75}
 
 export const Covid = ({url}) => {
     const data = useData(url);
@@ -67,6 +68,12 @@ export const Covid = ({url}) => {
                         enableBrush={false}
                         defaultTimeRange={defaultTimeRange}
 
+                    />
+                    <VerticalTooltip
+                        data={data}
+                        innerHeight={innerHeight}
+                        innerWidth={innerWidth}
+                        xScale={filteredChartXScale}
                     />
                     <text
                         className="tick"
