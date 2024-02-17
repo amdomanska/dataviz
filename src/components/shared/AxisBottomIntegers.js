@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AxisBottom = ({xScale, innerHeight, innerWidth, tickFormat}) =>
+export const AxisBottomIntegers = ({xScale, innerHeight, tickFormat}) =>
     xScale.ticks()
         .filter(tickValue => Number.isInteger(tickValue))
         .map((tickValue, i) => (

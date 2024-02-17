@@ -8,11 +8,11 @@ export const VerticalTooltip = ({data, innerHeight, innerWidth, xScale, colorSca
 
     const filteredData = useMemo(() => {
         return data.filter(d => d.year === year)
-    }, [year]);
+    }, [year, data]);
 
     useEffect(() => {
         setYearHovered(year);
-    }, [year]);
+    }, [year, setYearHovered]);
 
 
     const handleMouseMove = (e) => {

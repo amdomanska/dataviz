@@ -1,5 +1,5 @@
 import {OrdinalAxisLeft} from "./OrdinalAxisLeft";
-import {AxisBottom} from "./AxisBottom";
+import {AxisBottomIntegers} from "./AxisBottomIntegers";
 import React from "react";
 import {RectMarks} from "./RectMarks";
 
@@ -8,7 +8,7 @@ export const BarChart = ({xScale, xValue, yScale, yValue, innerHeight, tooltipFo
         <OrdinalAxisLeft
             yScale={yScale}
         />
-        <AxisBottom
+        <AxisBottomIntegers
             xScale={xScale}
             innerHeight={innerHeight}
             tickFormat={null}

@@ -34,10 +34,10 @@ export const DATAVIZ = [{
         info: "Using brush interactively a rectangular zone of a famous painting is defined. We extract the pixel values from that zone and display a histogram atop."
     },
     {
-        key: "neurodevelopmental_disorders_2",
-        title: "Neurodevelopmental disorders with brush",
-        url: "https://gist.githubusercontent.com/amdomanska/56e7cb5803523a05463c833fc57c1886/raw/34b3349e51b6a4250e6f409314361422f492ec0b/nddisorders.csv",
-        info: `Substance use disorders are not included. Figures attempt to provide a true estimate (going beyond reported diagnosis) ofprevalence based on medical, epidemiological data, surveys and meta-regression modelling. Data source: <a href='OurWorldInData.org/mental-health' target='_blank'> IHME, Global Burden of Disease (2019) </a>`
+        key: "covid",
+        title: "Covid: Total number of cases in the UK",
+        url: "https://gist.githubusercontent.com/amdomanska/bd20339f857924e7729249128996d8b3/raw/81e932068793e74e4a793cdfdebc1aa653637055/covid-total.csv",
+        info: ` Covid - total cases in UK, <a href='https://github.com/owid/covid-19-data/tree/master/public/data' target='_blank'>Data source</a>`
     },
     {
         key: "showAndTell",

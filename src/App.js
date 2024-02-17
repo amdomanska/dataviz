@@ -9,23 +9,20 @@ import {Iris} from "./components/visualizations/Iris"
 import {Migrants} from "./components/visualizations/Migrants"
 import {DATAVIZ as data} from "./data"
 import {NeurodevelopmentalDisorders} from "./components/visualizations/NeurodevelopmentalDisorders";
-import {NeurodevelopmentalDisordersWithBrush} from "./components/visualizations/NeurodevelopmentalDisordersWithBrush";
+import {Covid} from "./components/visualizations/Covid";
 import {ImageAnalyzer} from "./components/visualizations/ImageAnalyzer";
 import {ShowAndTell} from "./components/visualizations/ShowAndTell/showAndTell";
 
 function App() {
-    const [chosenViz, setChosenViz] = useState(data[4]);
-    const [hidden, setHidden] = useState(true);
+    const [chosenViz, setChosenViz] = useState(data[6]);
     const handleMenuClick = (viz) => {
         setChosenViz(viz);
     }
 
     return (
         <div className="App">
-            <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={data} hidden={hidden}/>
+            <PermanentDrawerLeft handleMenuClick={handleMenuClick} dataVizList={data}/>
             <div className="content container">
-                <button onClick={() => setHidden(prevState => !prevState)} className="data_source">{hidden ? 'Show navigation' : 'Hide navigation'}</button>
-
                 {chosenViz &&
                     <DataViz viz={chosenViz}>
                         {chosenViz.key === "colors" && <Colors/>}
@@ -33,7 +30,7 @@ function App() {
                         {chosenViz.key === "iris" && <Iris/>}
                         {chosenViz.key === "migrants" && <Migrants/>}
                         {chosenViz.key === "neurodevelopmental_disorders" && <NeurodevelopmentalDisorders/>}
-                        {chosenViz.key === "neurodevelopmental_disorders_2" && <NeurodevelopmentalDisordersWithBrush/>}
+                        {chosenViz.key === "covid" && <Covid/>}
                         {chosenViz.key === "showAndTell" && <ShowAndTell/>}
                         {chosenViz.key === "image_analyzer" && <ImageAnalyzer/>}
                     </ DataViz>

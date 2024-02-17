@@ -1,7 +1,7 @@
 import React from 'react';
 import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
-import {AxisBottom} from "../../shared/AxisBottom";
+import {AxisBottomIntegers} from "../../shared/AxisBottomIntegers";
 import {LinearAxisLeft} from "../../shared/LinearAxisLeft";
 import {CircleMarks} from "../../shared/CircleMarks";
 import {ColorLegend} from "../../shared/ColorLegend";
@@ -86,7 +86,7 @@ export const Iris = ({url}) => {
             </div>
             <svg width={width} height={height}>
                 <g transform={`translate(${margin.left},${margin.top})`}>
-                    <AxisBottom
+                    <AxisBottomIntegers
                         xScale={xScale}
                         innerHeight={innerHeight}
                         tickFormat={tickFormat}

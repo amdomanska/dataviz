@@ -6,7 +6,8 @@
   padding-top: 3rem;
   color: #333333; }
   .App .content {
-    position: relative; }
+    position: relative;
+    margin-left: 290px; }
     .App .content .viz_info {
       margin-bottom: 3rem; }
     .App .content .data_source {

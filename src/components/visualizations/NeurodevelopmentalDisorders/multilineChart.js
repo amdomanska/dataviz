@@ -1,5 +1,5 @@
 import {LinearAxisLeft} from "../../shared/LinearAxisLeft";
-import {AxisBottom} from "../../shared/AxisBottom";
+import {AxisBottomIntegers} from "../../shared/AxisBottomIntegers";
 import {useState} from "react";
 import * as d3 from "d3";
 import {CircleMarks} from "../../shared/CircleMarks";
@@ -42,7 +42,7 @@ export const MultilineChart = ({
                 innerWidth={innerWidth}
                 tickFormat={yTickFormat}
             />
-            <AxisBottom
+            <AxisBottomIntegers
                 xScale={xScale}
                 innerWidth={innerWidth}
                 innerHeight={innerHeight}

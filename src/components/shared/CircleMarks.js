@@ -19,7 +19,7 @@ export const CircleMarks = ({
             cx={xScale(xValue(d))}
             cy={yScale(yValue(d))}
             r={marked === xValue(d) ? radius+2 : radius}
-            fill={colorScale(colorValue(d))}
+            fill={colorScale ? colorScale(colorValue(d)) : colorValue}
         >
             {tooltip && <title>{yValue(d)}</title>}
         </circle>

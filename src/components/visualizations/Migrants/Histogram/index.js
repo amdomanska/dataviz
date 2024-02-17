@@ -2,7 +2,7 @@ import {useContext, useEffect, useRef, useMemo} from "react";
 import {AreaContext} from "../../../AreaContext";
 import {extent, scaleTime, scaleLinear, max, timeFormat, format, bin, timeMonths, sum, brushX, select} from "d3";
 import {LinearAxisLeft} from "../../../shared/LinearAxisLeft";
-import {AxisBottom} from "../../../shared/AxisBottom";
+import {AxisBottomIntegers} from "../../../shared/AxisBottomIntegers";
 import {Marks} from "./Marks";
 
 const margin = {top: 10, right: 30, bottom: 30, left: 45};
@@ -58,7 +58,7 @@ export const Histogram = ({data, width, height, setBrushExtent}) => {
                 innerWidth={innerWidth}
                 tickFormat={format("")}
             />
-            <AxisBottom
+            <AxisBottomIntegers
                 xScale={xScale}
                 innerHeight={innerHeight}
                 tickFormat={xAxisTickFormat}

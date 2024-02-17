@@ -3,7 +3,7 @@ import {useData} from "./useData";
 import {AreaContext} from "../../AreaContext";
 import {max, scaleLinear, scaleBand, format,} from 'd3';
 import {OrdinalAxisLeft} from '../../shared/OrdinalAxisLeft'
-import {AxisBottom} from '../../shared/AxisBottom'
+import {AxisBottomIntegers} from '../../shared/AxisBottomIntegers'
 
 import {RectMarks} from '../../shared/RectMarks';
 import {BarChart} from "../../shared/barChart";
