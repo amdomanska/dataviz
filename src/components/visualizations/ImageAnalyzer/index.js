@@ -1,70 +1,88 @@
-import { useEffect, useRef } from 'react';
-import { brush, select, DOM, scaleLinear } from 'd3';
+import {useEffect, useRef, useState} from 'react';
+import {histogram, max, scaleLinear, format} from 'd3';
+import kitty from './kitty.jpg';
+import {LinearAxisLeft} from '../../shared/LinearAxisLeft';
+import {AxisBottomIntegers} from '../../shared/AxisBottomIntegers';
+import {Marks} from "../Migrants/Histogram/Marks";
+import {HistogramMarks} from "./histogramMarks";
 
-const imgWidth = 1280;
-const imgHeight = 1014;
-
-const width = 1000;
-const scaleFactor = width/imgWidth;
-const height = imgHeight * scaleFactor;
-const imageUrl =
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg';
+const histHeight = 200;
+const margin = {top: 5, right: 5, bottom: 5, left: 5};
 
 export const ImageAnalyzer = () => {
-    return <p>In progress...</p>
-    // const r = new Uint16Array(257);
-    // const g = new Uint16Array(257);
-    // const b = new Uint16Array(257);
-    //
-    // const brushRef = useRef();
-    //
-    // const context = DOM.context(width, height, 1);
-    // context.willReadFrequently = true;
-    //
-    // const xScale = scaleLinear()
-    // .domain([0, 256])
-    // .rangeRound([0, width])
-    //
-    // const yScale = scaleLinear()
-    // .rangeRound([0, height / 4])
-    //
-    // useEffect(() => {
-    //
-    //     const brushInstance = brush().extent([
-    //         [0, 0],
-    //         [width, height],
-    //     ]);
-    //     brushInstance(select(brushRef.current));
-    //     brushInstance.on('brush end', brushed);
-    // }, []);
-    //
-    // const brushed = ({selection: [[x0, y0], [x1, y1]]}) => {
-    //     x0 = Math.round(x0);
-    //     y0 = Math.round(y0);
-    //     x1 = Math.round(x1);
-    //     y1 = Math.round(y1);
-    //     const dx = x1 - x0, dy = y1 - y0;
-    //
-    //     r.fill(0);
-    //     g.fill(0);
-    //     b.fill(0);
-    //
-    //     if (x1 > x0 && y1 > y0) {
-    //         const data = context.getImageData(x0, y0, dx, dy).data;
-    //         let max = 0;
-    //         for (let i = 0, k = -1; i < dx; ++i) {
-    //             for (let j = 0; j < dy; ++j, ++k) {
-    //                 max = Math.max(max, ++r[data[++k]], ++g[data[++k]], ++b[data[++k]]);
-    //             }
-    //         }
-    //         yScale.domain([0, max]);
-    //     }
-    // }
-    //
-    // return (
-    //     <svg width={width} height={height}>
-    //         <image xlinkHref={imageUrl} width={width} height={height}/>
-    //         <g ref={brushRef} />
-    //     </svg>
-    // );
+    const canvasRef = useRef();
+    const [loaded, setLoaded] = useState(false);
+    const [data, setData] = useState(null);
+
+    let img = new Image();
+    img.src = kitty;
+
+    useEffect(() => {
+
+        img.onload = () => {
+            // Create a canvas element to get pixel data
+            const canvas = canvasRef.current;
+            const context = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0, img.width, img.height);
+
+            // Get pixel data
+            const imageData = context.getImageData(0, 0, img.width, img.height).data;
+
+            // Collect RGB values
+            const rgbValues = [];
+            for (let i = 0; i < imageData.length; i += 4) {
+                const red = imageData[i];
+                const green = imageData[i + 1];
+                const blue = imageData[i + 2];
+                rgbValues.push({red, green, blue});
+            }
+
+            setData(rgbValues);
+            setLoaded(true);
+        };
+    }, []); // Empty dependency array ensures useEffect runs only once
+
+    if (!loaded || !data) {
+        return <canvas ref={canvasRef} style={{border: '1px solid black'}}/>;
+    }
+
+    const redBins = histogram().value((d) => d.red).domain([0, 255]).thresholds(256);
+    const greenBins = histogram().value((d) => d.green).domain([0, 255]).thresholds(256);
+    const blueBins = histogram().value((d) => d.blue).domain([0, 255]).thresholds(256);
+
+    const histRed = redBins(data);
+    const histGreen = greenBins(data);
+    const histBlue = blueBins(data);
+
+    // Assuming histRed, histGreen, and histBlue are arrays of bins
+    const allBins = [...histRed, ...histGreen, ...histBlue];
+
+    // Extract the counts from each bin
+    const counts = allBins.map((bin) => bin.length);
+
+    const maxCount = max(counts);
+
+    const yScale = scaleLinear().domain([0, maxCount]).range([0, histHeight]).nice();
+
+    const xScale = scaleLinear().domain([0, 255]).range([0, img.width]);
+
+    const innerWidth = img.width + margin.left + margin.right;
+    const innerHeight = histHeight + margin.bottom + margin.top;
+
+    return (
+        <>
+            <canvas ref={canvasRef} style={{border: '1px solid red'}}/>
+            <svg width={innerWidth} height={innerHeight} transform={`translate(${-1*innerWidth+margin.left},${margin.top})`}>
+                <g transform={`translate(${margin.left},${margin.top})`}>
+                    <LinearAxisLeft innerWidth={img.width} yScale={yScale}/>
+                    <AxisBottomIntegers innerHeight={histHeight} xScale={xScale}/>
+                    <HistogramMarks yScale={yScale} xScale={xScale} bins={histRed} innerHeight={innerHeight} color={"red"}/>
+                    <HistogramMarks yScale={yScale} xScale={xScale} bins={histBlue} innerHeight={innerHeight} color={"blue"}/>
+                    <HistogramMarks yScale={yScale} xScale={xScale} bins={histGreen} innerHeight={innerHeight} color={"green"}/>
+                </g>
+            </svg>
+        </>
+    );
 };
