@@ -3,7 +3,8 @@ import {histogram, max, scaleLinear} from 'd3';
 import kitty from './kitty.jpg';
 import {Histogram} from "./histogram";
 
-const histHeight = 200;
+const height = 200;
+const histHeight = height/3;
 const margin = {top: 5, right: 5, bottom: 5, left: 5};
 
 export const ImageAnalyzer = () => {
@@ -65,22 +66,22 @@ export const ImageAnalyzer = () => {
     const xScale = scaleLinear().domain([0, 255]).range([0, img.width]);
 
     const innerWidth = img.width;
-    const innerHeight = histHeight + margin.bottom + margin.top;
+    const innerHeight = height + margin.bottom + margin.top;
 
     return (
         <div className="img_hist_container">
             <canvas ref={canvasRef} style={{border: '1px solid red'}}/>
             <svg width={innerWidth+margin.left+margin.right} height={innerHeight} transform={`translate(${-1*margin.left},0)`}>
                 <g transform={`translate(${margin.left},${margin.top})`}>
-                    <Histogram data={histRed} xScale={xScale} yScale={yScale} innerHeight={histHeight / 3}
+                    <Histogram data={histRed} xScale={xScale} yScale={yScale} innerHeight={histHeight}
                                innerWidth={innerWidth} color={"red"}/>
                 </g>
-                <g transform={`translate(${margin.left},${histHeight/3 + margin.top})`}>
-                    <Histogram data={histBlue} xScale={xScale} yScale={yScale} innerHeight={histHeight / 3}
+                <g transform={`translate(${margin.left},${histHeight + margin.top})`}>
+                    <Histogram data={histBlue} xScale={xScale} yScale={yScale} innerHeight={histHeight}
                                innerWidth={innerWidth} color={"blue"}/>
                 </g>
-                <g transform={`translate(${margin.left},${2* histHeight/3 + margin.top})`}>
-                    <Histogram data={histGreen} xScale={xScale} yScale={yScale} innerHeight={histHeight / 3}
+                <g transform={`translate(${margin.left},${2*histHeight + margin.top})`}>
+                    <Histogram data={histGreen} xScale={xScale} yScale={yScale} innerHeight={histHeight}
                                innerWidth={innerWidth} color={"green"}/>
                 </g>
             </svg>
