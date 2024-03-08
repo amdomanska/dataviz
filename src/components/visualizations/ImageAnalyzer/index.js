@@ -1,10 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
-import {histogram, max, scaleLinear, format} from 'd3';
+import {histogram, max, scaleLinear} from 'd3';
 import kitty from './kitty.jpg';
-import {LinearAxisLeft} from '../../shared/LinearAxisLeft';
-import {AxisBottomIntegers} from '../../shared/AxisBottomIntegers';
-import {Marks} from "../Migrants/Histogram/Marks";
-import {HistogramMarks} from "./histogramMarks";
+import {Histogram} from "./histogram";
 
 const histHeight = 200;
 const margin = {top: 5, right: 5, bottom: 5, left: 5};
@@ -65,24 +62,28 @@ export const ImageAnalyzer = () => {
     const maxCount = max(counts);
 
     const yScale = scaleLinear().domain([0, maxCount]).range([0, histHeight]).nice();
-
     const xScale = scaleLinear().domain([0, 255]).range([0, img.width]);
 
-    const innerWidth = img.width + margin.left + margin.right;
+    const innerWidth = img.width;
     const innerHeight = histHeight + margin.bottom + margin.top;
 
     return (
-        <>
+        <div className="img_hist_container">
             <canvas ref={canvasRef} style={{border: '1px solid red'}}/>
-            <svg width={innerWidth} height={innerHeight} transform={`translate(${-1*innerWidth+margin.left},${margin.top})`}>
+            <svg width={innerWidth+margin.left+margin.right} height={innerHeight} transform={`translate(${-1*margin.left},0)`}>
                 <g transform={`translate(${margin.left},${margin.top})`}>
-                    <LinearAxisLeft innerWidth={img.width} yScale={yScale}/>
-                    <AxisBottomIntegers innerHeight={histHeight} xScale={xScale}/>
-                    <HistogramMarks yScale={yScale} xScale={xScale} bins={histRed} innerHeight={innerHeight} color={"red"}/>
-                    <HistogramMarks yScale={yScale} xScale={xScale} bins={histBlue} innerHeight={innerHeight} color={"blue"}/>
-                    <HistogramMarks yScale={yScale} xScale={xScale} bins={histGreen} innerHeight={innerHeight} color={"green"}/>
+                    <Histogram data={histRed} xScale={xScale} yScale={yScale} innerHeight={histHeight / 3}
+                               innerWidth={innerWidth} color={"red"}/>
+                </g>
+                <g transform={`translate(${margin.left},${histHeight/3 + margin.top})`}>
+                    <Histogram data={histBlue} xScale={xScale} yScale={yScale} innerHeight={histHeight / 3}
+                               innerWidth={innerWidth} color={"blue"}/>
+                </g>
+                <g transform={`translate(${margin.left},${2* histHeight/3 + margin.top})`}>
+                    <Histogram data={histGreen} xScale={xScale} yScale={yScale} innerHeight={histHeight / 3}
+                               innerWidth={innerWidth} color={"green"}/>
                 </g>
             </svg>
-        </>
+        </div>
     );
 };
