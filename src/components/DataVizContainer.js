@@ -1,7 +1,7 @@
 import React from 'react';
 import LaunchIcon from '@mui/icons-material/Launch';
 
-export const DataViz = ({viz, children}) => {
+export const DataVizContainer = ({viz, children}) => {
 
     const renderChildren = () => {
         return React.Children.map(children, (child) => {

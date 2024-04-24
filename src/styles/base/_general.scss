@@ -1,10 +1,57 @@
 .App {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
-  background-color: $aliceblue;
+  background-color: $white;
   height: 100vh;
-  padding-top: 3rem;
   color: $black;
+
+  body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+
+    color: $black;
+    text-align: center;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 200;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+
+    color: $black;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.1125rem;
+    text-transform: uppercase;
+
+  }
+
+  h3 {
+    color: $black;
+    text-align: center;
+    font-family: "Julius Sans One", sans-serif;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1rem;
+  }
+
 
   .content {
     position: relative;

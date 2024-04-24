@@ -1,69 +1,54 @@
-.App {
-  font-family: 'Montserrat', sans-serif;
-  text-align: left;
-  background-color: #F8F8FF;
-  height: 100vh;
-  padding-top: 3rem;
-  color: #333333; }
-  .App .content {
-    position: relative;
-    margin-left: 290px; }
-    .App .content .viz_info {
-      margin-bottom: 3rem; }
-    .App .content .data_source {
-      position: absolute;
-      top: .5rem;
-      right: 5rem;
-      padding: .5rem 1rem;
-      border: #333333 solid 1px;
-      color: #333333;
-      text-decoration: none; }
-      .App .content .data_source:hover {
-        color: #FFF;
-        background-color: #333333; }
+/*
+Error: File to import not found or unreadable: styles/components/button.
+        on line 4 of App.scss
 
-.css-1f2xuhi-MuiDrawer-docked .MuiDrawer-paper {
-  background-color: white; }
+1: @import "styles/base/pallette";
+2: @import "styles/base/general";
+3: @import "components/home/home";
+4: @import "styles/components/button";
+5: @import "styles/components/drawer";
+6: @import "styles/components/icons";
+7: @import "styles/components/viz";
+8: @import "styles/components/dropdowns";
+9: @import "styles/partials/colorLegend";
 
-svg {
-  background-color: #FFF;
-  vertical-align: text-top; }
-  svg .tick line {
-    stroke: #dcdcd8; }
-  svg .tick text {
-    fill: #635F5D; }
-  svg .mark--rect {
-    fill: #0A0A93; }
-  svg .mark--circular {
-    fill: #0A0A93;
-    opacity: 0.2; }
-  svg .axis-label {
-    font-size: 2em;
-    fill: #635F5D; }
-
-.controls-container {
-  display: flex;
-  flex-direction: row;
-  gap: .5rem;
-  margin-bottom: .5rem; }
-
-.color-legend {
-  cursor: pointer; }
-
-.world-marks .sphere {
-  fill: #fbfbfb; }
-.world-marks .graticules {
-  fill: none;
-  stroke: #ececec; }
-.world-marks .land {
-  fill: #ececec; }
-.world-marks .interiors {
-  fill: none;
-  stroke: #d9dfe0; }
-
-.img_hist_container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; }
-
-/*# sourceMappingURL=App.css.map */
+Backtrace:
+App.scss:4
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/import_node.rb:67:in `rescue in import'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/import_node.rb:44:in `import'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/import_node.rb:28:in `imported_file'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/import_node.rb:37:in `css_import?'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:310:in `visit_import'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `map'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:10:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/root_node.rb:36:in `css_tree'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/engine.rb:307:in `render_with_sourcemap'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:383:in `run'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/bin/sass:8:in `<top (required)>'
+/usr/bin/sass:25:in `load'
+/usr/bin/sass:25:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: File to import not found or unreadable: styles/components/button.\A         on line 4 of App.scss\A \A 1: @import \"styles/base/pallette\";\A 2: @import \"styles/base/general\";\A 3: @import \"components/home/home\";\A 4: @import \"styles/components/button\";\A 5: @import \"styles/components/drawer\";\A 6: @import \"styles/components/icons\";\A 7: @import \"styles/components/viz\";\A 8: @import \"styles/components/dropdowns\";\A 9: @import \"styles/partials/colorLegend\";"; }

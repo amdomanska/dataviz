@@ -1,0 +1,18 @@
+.btn {
+  display: flex;
+  padding: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0;
+  &-primary {
+    background-color: $jordy;
+    border: none;
+  }
+  &-secondary {
+    background-color: transparent;
+    border: 2px $jordy;
+  }
+
+
+}
