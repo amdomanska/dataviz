@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/dataviz/static/css/main.57abf120.css",
+    "main.js": "/dataviz/static/js/main.592b225e.js",
+    "static/js/787.4989c6ef.chunk.js": "/dataviz/static/js/787.4989c6ef.chunk.js",
+    "static/media/kitty.jpg": "/dataviz/static/media/kitty.0ff5799acea1cbb0c73a.jpg",
+    "index.html": "/dataviz/index.html",
+    "main.57abf120.css.map": "/dataviz/static/css/main.57abf120.css.map",
+    "main.592b225e.js.map": "/dataviz/static/js/main.592b225e.js.map",
+    "787.4989c6ef.chunk.js.map": "/dataviz/static/js/787.4989c6ef.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.57abf120.css",
+    "static/js/main.592b225e.js"
+  ]
+}
